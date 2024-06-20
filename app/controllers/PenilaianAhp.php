@@ -1,5 +1,7 @@
 <?php
 
+use Dompdf\Dompdf;
+
 class PenilaianAhp extends Controller
 {
     public $datastatis = [];
@@ -223,7 +225,7 @@ class PenilaianAhp extends Controller
         echo json_encode($data);
     }
 
-    public function resultAhp()
+    private function dataResultAhp()
     {
         $dataGet = $_GET;
         $dataMatriksKriteria = json_decode($this->model('MatriksAhp_model')->getAhpKriteria(), true);
@@ -253,10 +255,6 @@ class PenilaianAhp extends Controller
             $data['toconvert_kriteria'] = $dataKriteria;
 
             $data['ahp_kriteria'] = $ahpKriteria;
-            ob_start();
-            include_once $this->view('app/penilaianAhp/result', $data);
-            $content = ob_get_clean();
-            echo ($content);
         } else {
             $data['kriteria'] = $this->model('Kriteria_model')->getById($dataGet['kriteria_id']);
             $data['alternatif'] = $this->model('Siswa_model')->getAll();
@@ -270,6 +268,24 @@ class PenilaianAhp extends Controller
             $data['toconvert_alternatif'] = $dataAlternatif;
 
             $data['ahp_alternatif'] = $ahpAlternatif[$dataGet['kriteria_id']];
+        }
+
+        return [
+            'tipe' => $dataGet['tipe'],
+            'data' => $data
+        ];
+    }
+    public function resultAhp()
+    {
+        $resultAhp = $this->dataResultAhp();
+        $tipe = $resultAhp['tipe'];
+        $data = $resultAhp['data'];
+        if ($tipe == 'kriteria') {
+            ob_start();
+            include_once $this->view('app/penilaianAhp/result', $data);
+            $content = ob_get_clean();
+            echo ($content);
+        } else {
             ob_start();
             include_once $this->view('app/penilaianAhp/resultAhp', $data);
             $content = ob_get_clean();
@@ -277,7 +293,7 @@ class PenilaianAhp extends Controller
         }
     }
 
-    public function lastResultAhp()
+    private function manageHasilAkhir()
     {
         $dataMatriksKriteria = json_decode($this->model('MatriksAhp_model')->getAhpKriteria(), true);
         $dataMatriksAlternatif = $this->model('MatriksAlternatif_model')->getAhpAlternatif();
@@ -353,9 +369,63 @@ class PenilaianAhp extends Controller
         $dataHasilAkhir = json_encode($save_hasil_akhir);
         $this->model('HasilAkhir_model')->updateHasilAkhir($dataHasilAkhir);
 
+        return $data;
+    }
+
+    public function lastResultAhp()
+    {
+        $data = $this->manageHasilAkhir();
         ob_start();
         include_once $this->view('app/penilaianAhp/lastResultAhp', $data);
         $content = ob_get_clean();
         echo ($content);
+    }
+    public function lastResultAhpPdf()
+    {
+        $dompdf = new Dompdf();
+
+        $data = $this->manageHasilAkhir();
+        $html = '';
+        ob_start();
+        include_once $this->view('app/penilaianAhp/print/lastResultAhp', $data);
+        $html = ob_get_clean();
+
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream('document.pdf', [
+            'Attachment' => 0
+        ]);
+    }
+
+    public function resultAhpPdf()
+    {
+        $dompdf = new Dompdf();
+
+        $resultAhp = $this->dataResultAhp();
+        $tipe = $resultAhp['tipe'];
+        $data = $resultAhp['data'];
+
+        $html = '';
+        if ($tipe == 'kriteria') {
+            ob_start();
+            include_once $this->view('app/penilaianAhp/print/result', $data);
+            $html = ob_get_clean();
+        } else {
+            ob_start();
+            include_once $this->view('app/penilaianAhp/print/resultAhp', $data);
+            $html = ob_get_clean();
+        }
+
+        $dompdf->loadHtml($html);
+
+        $dompdf->setPaper('A4', 'landscape');
+
+        $dompdf->render();
+
+        $dompdf->stream('document.pdf', [
+            'Attachment' => 0
+        ]);
     }
 }

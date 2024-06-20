@@ -51,6 +51,9 @@
                                                     <i class="fa-solid fa-pen-to-square"></i> Penilaian
                                                 </div>
                                                 <div>
+                                                    <button type="button" class="btn btn-danger btn-print-hasil" data-url="">
+                                                        <i class="fa-solid fa-file-pdf"></i> Print Hasil
+                                                    </button>
                                                     <button type="button" class="btn btn-primary btn-hasil-perhitungan">
                                                         <i class="fa-solid fa-book-open"></i> Hasil Perhitungan
                                                     </button>

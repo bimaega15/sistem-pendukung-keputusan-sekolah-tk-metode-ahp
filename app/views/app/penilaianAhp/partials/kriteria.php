@@ -19,4 +19,9 @@
             Hasil Akhir
         </strong>
     </a>
+    <a class="nav-link tab-result-kriteria-print bg-danger" id="result-kriteria-tab-print" data-toggle="pill" href="#result-kriteria-tab-print-controls" role="tab" aria-controls="result-kriteria-tab-print-controls" aria-selected="true">
+        <strong class="text-white">
+            Cetak Hasil
+        </strong>
+    </a>
 </div>

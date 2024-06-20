@@ -271,43 +271,55 @@ $(document).ready(function () {
         })
     })
 
-    body.on('click', '.btn-hasil-perhitungan', function (e) {
-        e.preventDefault();
+    const showError = (message) => {
+        return Swal.fire({
+            title: 'Failed',
+            text: message,
+            icon: 'error',
+            confirmButtonText: 'OK',
+        });
+    }
+
+    const validationBeforeCount = () => {
         const $tabKriteriaActive = $('.tab-kriteria.active');
         const tipe = $tabKriteriaActive.data('tipe');
         const kriteriaId = $tabKriteriaActive.data('kriteria_id');
 
         const tipeAhp = (tipe === 'alternatif') ? 'ahp_alternatif' : 'ahp_kriteria';
         const dataAhpResult = dataAhp[tipeAhp];
-
-        function showError(message) {
-            return Swal.fire({
-                title: 'Failed',
-                text: message,
-                icon: 'error',
-                confirmButtonText: 'OK',
-            });
-        }
-
+        let output = '';
         if (tipeAhp === 'ahp_alternatif') {
             if (!dataAhpResult || dataAhpResult.length === 0) {
-                return showError('Pastikan anda sudah mengisi matriks perbandingan');
+                output = 'Pastikan anda sudah mengisi matriks perbandingan';
             }
         } else {
             if (dataAhpResult === undefined) {
-                return showError('Pastikan anda sudah mengisi matriks perbandingan');
+                output = 'Pastikan anda sudah mengisi matriks perbandingan';
             }
         }
 
         if (tipeAhp === 'ahp_alternatif') {
             if (typeof dataAhpResult[kriteriaId] === 'undefined') {
-                return showError('Pastikan anda sudah mengisi matriks perbandingan');
+                output = 'Pastikan anda sudah mengisi matriks perbandingan';
             }
         } else {
             if (dataAhpResult === undefined) {
-                return showError('Pastikan anda sudah mengisi matriks perbandingan');
+                output = 'Pastikan anda sudah mengisi matriks perbandingan';
             }
         }
+        return output;
+    }
+
+    body.on('click', '.btn-hasil-perhitungan', function (e) {
+        e.preventDefault();
+        const checkValidations = validationBeforeCount();
+        if (checkValidations !== '') {
+            return showError(checkValidations);
+        }
+
+        const $tabKriteriaActive = $('.tab-kriteria.active');
+        const tipe = $tabKriteriaActive.data('tipe');
+        const kriteriaId = $tabKriteriaActive.data('kriteria_id');
 
         showModal({
             url: `${baseurl}/PenilaianAhp/resultAhp`,
@@ -321,8 +333,21 @@ $(document).ready(function () {
         });
     })
 
-    body.on('click', '.tab-result-kriteria', function (e) {
+    body.on('click', '.btn-print-hasil', function (e) {
         e.preventDefault();
+        const checkValidations = validationBeforeCount();
+        if (checkValidations !== '') {
+            return showError(checkValidations);
+        }
+
+        const $tabKriteriaActive = $('.tab-kriteria.active');
+        const tipe = $tabKriteriaActive.data('tipe');
+        const kriteriaId = $tabKriteriaActive.data('kriteria_id');
+
+        window.open(`${baseurl}/PenilaianAhp/resultAhpPdf?tipe=${tipe}&kriteria_id=${kriteriaId}`, '_blank');
+    })
+
+    const validationHasilAkhir = () => {
         const tipeAlternatif = 'ahp_alternatif';
         const tipeKriteria = 'ahp_kriteria';
         const dataAhpResultAlternatif = dataAhp[tipeAlternatif];
@@ -330,29 +355,21 @@ $(document).ready(function () {
         const dataKriteria = dataAhp['kriteria'];
         const lengthDataAhpResultAlternatif = Object.keys(dataAhpResultAlternatif).map(item => item);
 
-        function showError(message) {
-            return Swal.fire({
-                title: 'Failed',
-                text: message,
-                icon: 'error',
-                confirmButtonText: 'OK',
-            });
-        }
-
+        let errorMessage = '';
         if (!dataAhpResultAlternatif || lengthDataAhpResultAlternatif.length === 0) {
-            return showError('Pastikan anda sudah mengisi matriks perbandingan');
+            errorMessage = 'Pastikan anda sudah mengisi matriks perbandingan';
         }
 
         if (dataAhpResultKriteria === undefined) {
-            return showError('Pastikan anda sudah mengisi matriks perbandingan');
+            errorMessage = 'Pastikan anda sudah mengisi matriks perbandingan';
         }
 
         if (dataAhpResultKriteria.cr > 0.1) {
-            return showError('Matriks perbandingan kriteria belum konsisten');
+            errorMessage = 'Matriks perbandingan kriteria belum konsisten';
         }
 
         if (dataKriteria.length !== lengthDataAhpResultAlternatif.length) {
-            return showError('Pastikan matriks perbandingan alternatif sudah mengisi form matriks perbandingan');
+            errorMessage = 'Pastikan matriks perbandingan alternatif sudah mengisi form matriks perbandingan';
         }
 
         let error = false;
@@ -366,7 +383,18 @@ $(document).ready(function () {
             }
         })
         if (error) {
-            return showError(message);
+            errorMessage = message;
+        }
+
+        return errorMessage;
+    }
+
+    body.on('click', '.tab-result-kriteria', function (e) {
+        e.preventDefault();
+
+        const getValidationHasilAkhir = validationHasilAkhir();
+        if (getValidationHasilAkhir !== '') {
+            return showError(getValidationHasilAkhir);
         }
 
         showModal({
@@ -375,5 +403,14 @@ $(document).ready(function () {
             title: 'Form Hasil Akhir',
             type: 'get',
         });
+    })
+
+    body.on('click', '.tab-result-kriteria-print', function (e) {
+        e.preventDefault();
+        const getValidationHasilAkhir = validationHasilAkhir();
+        if (getValidationHasilAkhir !== '') {
+            return showError(getValidationHasilAkhir);
+        }
+        window.open(`${baseurl}/PenilaianAhp/lastResultAhpPdf`, '_blank');
     })
 })
