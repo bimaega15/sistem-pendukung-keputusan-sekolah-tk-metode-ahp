@@ -26,7 +26,7 @@ class PerkembanganNilai extends Controller
         // breadcrumbs
         $breadcrumbItems = [
             ['url' => BASEURL . '/Dashboard', 'label' => 'Home'],
-            ['url' => BASEURL . '/Perkembangan Nilai', 'label' => 'Perkembangan Nilai'],
+            ['url' => BASEURL . '/Perkembangan Nilai', 'label' => 'Grafik'],
         ];
 
         $dataHasilAkhir = $this->model('HasilAkhir_model')->getHasilAkhir();
@@ -40,7 +40,7 @@ class PerkembanganNilai extends Controller
         $content = ob_get_clean();
 
 
-        $template->assign('title', 'Perkembangan Nilai');
+        $template->assign('title', 'Grafik Siswa');
         $template->assign('content', $content);
         $template->assign('custom_js', '
         <script class="baseurl" data-value="' . BASEURL . '"></script>

@@ -18,7 +18,7 @@ var validate = $("#form-submit").validate({
         users_id: "required",
     },
     messages: {
-        tingkat_kelas: "Masukan Tingkat Kelas",
+       
         nama_kelas: "Masukan nama kelas",
         users_id: "Masukan nama guru",
     }

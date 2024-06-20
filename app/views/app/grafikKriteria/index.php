@@ -24,7 +24,7 @@
                 <div class="col-lg-12">
                     <ul class="nav nav-pills">
                         <li class="nav-item">
-                            <a class="nav-link  <?= Utils::urlNow() == 'PerkembanganNilai' ? 'active' : 'bg-light' ?>" href="<?= BASEURL ?>/PerkembanganNilai">Perkembangan Nilai</a>
+                            <a class="nav-link  <?= Utils::urlNow() == 'PerkembanganNilai' ? 'active' : 'bg-light' ?>" href="<?= BASEURL ?>/PerkembanganNilai">Grafik Siswa</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link  <?= Utils::urlNow() == 'GrafikKriteria' ? 'active' : 'bg-light' ?>" href="<?= BASEURL ?>/GrafikKriteria">Grafik Kriteria</a>

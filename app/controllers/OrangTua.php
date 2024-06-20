@@ -7,7 +7,7 @@ class OrangTua extends Controller
         $utils = new Utils();
         $utils->notLogin();
 
-        $allowMyProfile = ['Guru'];
+        $allowMyProfile = ['Admin'];
         $utils = new Utils();
         $myProfile = $utils->myProfile();
         if (!in_array($myProfile['nama_roles'], $allowMyProfile)) {

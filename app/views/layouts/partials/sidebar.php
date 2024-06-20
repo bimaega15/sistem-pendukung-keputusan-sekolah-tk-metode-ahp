@@ -89,7 +89,7 @@ $settingApp = $utils->settingApp();
 
 
                 <?php
-                $allowData = ['Guru', 'Wali Murid'];
+                $allowData = ['Admin', 'Wali Murid'];
                 if (in_array($myProfile['nama_roles'], $allowData)) { ?>
                     <li class="nav-item">
                         <a href="<?= BASEURL ?>/MataPelajaran" class="nav-link <?= Utils::urlNow() == 'MataPelajaran' ? 'active' : '' ?>">
@@ -149,7 +149,7 @@ $settingApp = $utils->settingApp();
                         <ul class="nav nav-treeview">
 
                             <?php
-                            $allowData = ['Guru'];
+                            $allowData = ['Admin', 'Guru'];
                             if (in_array($myProfile['nama_roles'], $allowData)) { ?>
                                 <li class="nav-item">
                                     <a href="<?= BASEURL ?>/Siswa" class="nav-link <?= $activeClassSiswa ?>">
@@ -195,7 +195,7 @@ $settingApp = $utils->settingApp();
                             <?php } ?>
 
                             <?php
-                            $allowData = ['Guru', 'Wali Murid'];
+                            $allowData = ['Admin', 'Wali Murid'];
                             if (in_array($myProfile['nama_roles'], $allowData)) { ?>
                                 <li class="nav-item">
                                     <a href="<?= BASEURL ?>/OrangTua" class="nav-link <?= $activeClassOrangTua ?>">
@@ -247,7 +247,7 @@ $settingApp = $utils->settingApp();
                         <a href="<?= BASEURL ?>/PerkembanganNilai" class="nav-link <?= Utils::urlNow() == 'PerkembanganNilai' ? 'active' : '' ?>">
                             <i class="nav-icon fa-solid fa-chart-simple"></i>
                             <p>
-                                Perkembangan Nilai
+                                Grafik
                             </p>
                         </a>
                     </li>
