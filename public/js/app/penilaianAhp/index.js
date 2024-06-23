@@ -101,40 +101,54 @@ $(document).ready(function () {
     body.on('click', '.tab-kriteria', function (e) {
         e.preventDefault();
 
-        const $tabKriteriaActive = $(this);
-        const tipe = $tabKriteriaActive.data('tipe');
-        const kriteriaId = $tabKriteriaActive.data('kriteria_id');
-        const tabId = $tabKriteriaActive.attr('id');
+        const tabKriteriaActive = $(this);
+        const tipe = tabKriteriaActive.data('tipe');
+        const kriteriaId = tabKriteriaActive.data('kriteria_id');
+        const tabId = tabKriteriaActive.attr('id');
 
-        const $dataMatriks = $(`.tab-content-section[data-tipe="${tipe}"][data-kriteria_id="${kriteriaId}"][data-id="${tabId}"] .data_matriks`);
+        const dataMatriks = $(`.tab-content-section[data-tipe="${tipe}"][data-kriteria_id="${kriteriaId}"][data-id="${tabId}"] .data_matriks`);
 
         const tipeAhp = tipe === 'alternatif' ? 'ahp_alternatif' : 'ahp_kriteria';
         const dataAhpResult = dataAhp[tipeAhp];
 
-        const updateDataMatriks = ($matriks, matriks_perbandingan_original) => {
-            $matriks.each(function () {
+        const updateDataMatriks = (matriks, matriks_perbandingan_original) => {
+            $.each(matriks, function (index, data) {
                 const alternatif_id1 = $(this).data('alternatif_id1');
                 const alternatif_id2 = $(this).data('alternatif_id2');
-                const valueMatriks = matriks_perbandingan_original[alternatif_id1][alternatif_id2];
 
-                $(this).data('value', valueMatriks);
+                if (matriks_perbandingan_original.hasOwnProperty(alternatif_id1) && matriks_perbandingan_original[alternatif_id1].hasOwnProperty(alternatif_id2)) {
+                    const valueMatriks = matriks_perbandingan_original[alternatif_id1][alternatif_id2];
 
-                if ($(this).hasClass('invers_matrix')) {
-                    $(this).text(valueMatriks);
-                }
+                    $(this).data('value', valueMatriks);
 
-                if ($(this).hasClass('form-control')) {
-                    $(this).find(`option[value="${valueMatriks}"]`).prop('selected', true);
+                    if ($(this).hasClass('invers_matrix')) {
+                        $(this).text(valueMatriks);
+                    }
+
+                    if ($(this).hasClass('form-control')) {
+                        $(this).find(`option[value="${valueMatriks}"]`).prop('selected', true);
+                    }
+                } else {
+                    $(this).data('value', '');
+
+                    if ($(this).hasClass('invers_matrix')) {
+                        $(this).text('');
+                    }
+
+                    if ($(this).hasClass('form-control')) {
+                        $(this).find('option').prop('selected', false);
+                    }
                 }
             });
+
         }
 
         if (dataAhpResult) {
             if (dataAhpResult.hasOwnProperty(kriteriaId)) {
                 const matriks_perbandingan_original = dataAhpResult[kriteriaId]['matriks_perbandingan_original'];
-                updateDataMatriks($dataMatriks, matriks_perbandingan_original);
+                updateDataMatriks(dataMatriks, matriks_perbandingan_original);
             } else {
-                $dataMatriks.each(function () {
+                dataMatriks.each(function () {
                     const valueMatriks = $(this).data('value');
 
                     if ($(this).hasClass('invers_matrix')) {
@@ -143,7 +157,7 @@ $(document).ready(function () {
                 });
             }
         } else {
-            $dataMatriks.each(function () {
+            dataMatriks.each(function () {
                 const valueMatriks = $(this).data('value');
 
                 if ($(this).hasClass('invers_matrix')) {
@@ -281,9 +295,9 @@ $(document).ready(function () {
     }
 
     const validationBeforeCount = () => {
-        const $tabKriteriaActive = $('.tab-kriteria.active');
-        const tipe = $tabKriteriaActive.data('tipe');
-        const kriteriaId = $tabKriteriaActive.data('kriteria_id');
+        const tabKriteriaActive = $('.tab-kriteria.active');
+        const tipe = tabKriteriaActive.data('tipe');
+        const kriteriaId = tabKriteriaActive.data('kriteria_id');
 
         const tipeAhp = (tipe === 'alternatif') ? 'ahp_alternatif' : 'ahp_kriteria';
         const dataAhpResult = dataAhp[tipeAhp];
@@ -317,9 +331,17 @@ $(document).ready(function () {
             return showError(checkValidations);
         }
 
-        const $tabKriteriaActive = $('.tab-kriteria.active');
-        const tipe = $tabKriteriaActive.data('tipe');
-        const kriteriaId = $tabKriteriaActive.data('kriteria_id');
+        const tabKriteriaActive = $('.tab-kriteria.active');
+        if (tabKriteriaActive.length == 0) {
+            return Swal.fire({
+                title: 'Failed',
+                text: 'Silahkan pilih kriteria terlebih dahulu',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        }
+        const tipe = tabKriteriaActive.data('tipe');
+        const kriteriaId = tabKriteriaActive.data('kriteria_id');
 
         showModal({
             url: `${baseurl}/PenilaianAhp/resultAhp`,
@@ -340,9 +362,9 @@ $(document).ready(function () {
             return showError(checkValidations);
         }
 
-        const $tabKriteriaActive = $('.tab-kriteria.active');
-        const tipe = $tabKriteriaActive.data('tipe');
-        const kriteriaId = $tabKriteriaActive.data('kriteria_id');
+        const tabKriteriaActive = $('.tab-kriteria.active');
+        const tipe = tabKriteriaActive.data('tipe');
+        const kriteriaId = tabKriteriaActive.data('kriteria_id');
 
         window.open(`${baseurl}/PenilaianAhp/resultAhpPdf?tipe=${tipe}&kriteria_id=${kriteriaId}`, '_blank');
     })
