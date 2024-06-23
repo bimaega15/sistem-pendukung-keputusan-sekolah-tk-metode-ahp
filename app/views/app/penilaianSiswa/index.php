@@ -26,7 +26,7 @@
                                     <i class="fa-solid fa-note-sticky"></i>Penilaian Siswa
                                 </div>
                                 <?php
-                                if ($data['nama_roles'] != 'Wali Murid') { ?>
+                                if ($data['nama_roles'] != 'Orang Tua') { ?>
                                     <div>
                                         <button type="button" class="btn btn-primary btn-add" data-url="<?= BASEURL ?>/PenilaianSiswa/create?siswa_id=<?= $data['siswa']['id'] ?>">
                                             <i class="fa-solid fa-plus"></i> Tambah Data
@@ -92,7 +92,7 @@
                                             <th>Nilai</th>
                                             <th>Keterangan</th>
                                             <?php
-                                            if ($data['nama_roles'] != 'Wali Murid') { ?>
+                                            if ($data['nama_roles'] !== 'Orang Tua') { ?>
                                                 <th>Action</th>
                                             <?php
                                             }

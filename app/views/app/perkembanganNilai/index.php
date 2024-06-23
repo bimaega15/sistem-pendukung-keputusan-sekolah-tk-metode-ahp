@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Perkembangan Nilai</h1>
+                    <h1 class="m-0">Grafik</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <?= Utils::generateBreadcrumb($data['breadcrumbs']) ?>
@@ -24,7 +24,7 @@
                 <div class="col-lg-12">
                     <ul class="nav nav-pills">
                         <li class="nav-item">
-                            <a class="nav-link  <?= Utils::urlNow() == 'PerkembanganNilai' ? 'active' : 'bg-light' ?>" href="<?= BASEURL ?>/PerkembanganNilai">Perkembangan Nilai</a>
+                            <a class="nav-link  <?= Utils::urlNow() == 'PerkembanganNilai' ? 'active' : 'bg-light' ?>" href="<?= BASEURL ?>/PerkembanganNilai">Grafik Siswa</a>
                         </li>
                         <?php if ($namaRoles != 'Orang Tua') { ?>
                             <li class="nav-item">
@@ -46,7 +46,7 @@
                     } else { ?>
                         <div class="card">
                             <div class="card-header">
-                                <i class="fa-solid fa-chart-simple"></i> Perkembangan Siswa
+                                <i class="fa-solid fa-chart-simple"></i> Grafik Siswa
                             </div>
                             <div class="card-body">
                                 <canvas id="grafik_perkembangan"></canvas>

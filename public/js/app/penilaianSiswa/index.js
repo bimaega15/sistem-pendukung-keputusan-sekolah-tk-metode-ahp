@@ -29,7 +29,7 @@ $(document).ready(function () {
         }
     ];
 
-    if (nama_roles != 'Wali Murid') {
+    if (nama_roles !== 'Orang Tua') {
         allowColumn.push({
             data: "action",
             name: "action",
