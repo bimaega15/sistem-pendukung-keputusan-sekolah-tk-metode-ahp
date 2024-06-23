@@ -7,7 +7,7 @@ class Absensi extends Controller
         $utils = new Utils();
         $utils->notLogin();
 
-        $allowMyProfile = ['Guru', 'Wali Murid', 'Orang Tua'];
+        $allowMyProfile = ['Guru',  'Orang Tua'];
         $utils = new Utils();
         $myProfile = $utils->myProfile();
         if (!in_array($myProfile['nama_roles'], $allowMyProfile)) {

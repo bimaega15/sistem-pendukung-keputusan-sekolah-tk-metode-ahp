@@ -17,7 +17,7 @@ var loadData = () => {
                 data: {
                     labels: label,
                     datasets: [{
-                        label: 'Perkembangan Nilai Siswa',
+                        label: 'Grafik Siswa',
                         data: bobot,
                         borderWidth: 1,
                         backgroundColor: 'rgba(54, 162, 235, 0.5)',
