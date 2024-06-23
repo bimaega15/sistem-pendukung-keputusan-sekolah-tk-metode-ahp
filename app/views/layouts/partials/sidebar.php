@@ -253,9 +253,9 @@ $settingApp = $utils->settingApp();
                     </li>
                 <?php  } ?>
 
-                <li class="nav-header">SETTING APLIKASI</li>
+                <li class="nav-header">Logout</li>
 
-                <?php
+                <!-- <?php
                 $allowData = ['Admin'];
                 if (in_array($myProfile['nama_roles'], $allowData)) { ?>
                     <li class="nav-item">
@@ -266,9 +266,9 @@ $settingApp = $utils->settingApp();
                             </p>
                         </a>
                     </li>
-                <?php } ?>
+                <?php } ?> -->
 
-                <?php
+                <!-- <?php
                 $allowData = ['Admin'];
                 if (in_array($myProfile['nama_roles'], $allowData)) { ?>
                     <li class="nav-item">
@@ -279,7 +279,7 @@ $settingApp = $utils->settingApp();
                             </p>
                         </a>
                     </li>
-                <?php } ?>
+                <?php } ?> -->
 
                 <li class="nav-item">
                     <a href="<?= BASEURL ?>/Logout" class="nav-link <?= Utils::urlNow() == 'Logout' ? 'active' : '' ?>">

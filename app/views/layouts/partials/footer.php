@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 $utils = new Utils();
 $settingApp = $utils->settingApp();
 ?>
@@ -10,4 +10,4 @@ $settingApp = $utils->settingApp();
     <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 1.0
     </div>
-</footer>
+</footer> -->
