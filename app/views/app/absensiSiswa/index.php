@@ -33,16 +33,11 @@
                                 <div>
                                     <i class="fa-solid fa-note-sticky"></i>Absensi Siswa
                                 </div>
-                                <?php
-                                if ($data['nama_roles'] != 'Orang Tua') { ?>
                                 <div>
                                     <button type="button" class="btn btn-primary btn-add" data-url="<?= BASEURL ?>/AbsensiSiswa/create?siswa_id=<?= $data['siswa']['id'] ?>">
                                         <i class="fa-solid fa-plus"></i> Tambah Data
                                     </button>
                                 </div>
-                                <?php
-                                }
-                                ?>
                             </div>
                         </div>
                         <div class="card-body">
@@ -88,12 +83,6 @@
                                             <th>Absensi</th>
                                             <th>Keterangan</th>
                                             <th>Action</th>
-                                            <?php
-                                            if ($data['nama_roles'] !== 'Orang Tua') { ?>
-                                                <th>Action</th>
-                                            <?php
-                                            }
-                                            ?>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
