@@ -71,7 +71,7 @@ $settingApp = $utils->settingApp();
                 <?php
                 $allowData = ['Orang Tua'];
                 if (!in_array($myProfile['nama_roles'], $allowData)) { ?>
-                    <li class="nav-header">DATA MASTER</li>
+                    <li class="nav-header">DATA </li>
                 <?php } ?>
 
                 <?php
@@ -211,11 +211,11 @@ $settingApp = $utils->settingApp();
                 <?php
                 $allowData = ['Guru', 'Wali Murid'];
                 if (in_array($myProfile['nama_roles'], $allowData)) { ?>
-                    <li class="nav-header">DATA NILAI</li>
+                    <!-- <li class="nav-header">DATA NILAI</li> -->
                 <?php } ?>
 
                 <?php
-                $allowData = ['Guru', 'Wali Murid', 'Orang Tua'];
+                $allowData = [ 'Orang Tua'];
                 if (in_array($myProfile['nama_roles'], $allowData)) { ?>
                     <li class="nav-item">
                         <a href="<?= BASEURL ?>/Nilai" class="nav-link <?= Utils::urlNow() == 'Nilai' ? 'active' : '' ?>">
@@ -228,7 +228,7 @@ $settingApp = $utils->settingApp();
                 <?php } ?>
 
                 <?php
-                $allowData = ['Guru', 'Wali Murid', 'Orang Tua'];
+                $allowData = [ 'Orang Tua'];
                 if (in_array($myProfile['nama_roles'], $allowData)) { ?>
                     <li class="nav-item">
                         <a href="<?= BASEURL ?>/Absensi" class="nav-link <?= Utils::urlNow() == 'Absensi' ? 'active' : '' ?>">
@@ -241,7 +241,7 @@ $settingApp = $utils->settingApp();
                 <?php  } ?>
 
                 <?php
-                $allowData = ['Guru', 'Wali Murid', 'Orang Tua'];
+                $allowData = ['Guru', 'Orang Tua'];
                 if (in_array($myProfile['nama_roles'], $allowData)) { ?>
                     <li class="nav-item">
                         <a href="<?= BASEURL ?>/PerkembanganNilai" class="nav-link <?= Utils::urlNow() == 'PerkembanganNilai' ? 'active' : '' ?>">
@@ -253,7 +253,7 @@ $settingApp = $utils->settingApp();
                     </li>
                 <?php  } ?>
 
-                <li class="nav-header">Logout</li>
+                <li class="nav-header">LOGOUT</li>
 
                 <!-- <?php
                 $allowData = ['Admin'];

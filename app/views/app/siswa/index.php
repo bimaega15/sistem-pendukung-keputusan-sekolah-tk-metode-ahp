@@ -1,3 +1,7 @@
+<div class="user_role" data-value="<?= $data['nama_roles'] ?>"></div>
+<div class="user_role" data-value="Guru"></div>
+
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -25,11 +29,13 @@
                                 <div>
                                     <i class="fa-solid fa-note-sticky"></i> Siswa
                                 </div>
-                                <div>
-                                    <button type="button" class="btn btn-primary btn-add">
-                                        <i class="fa-solid fa-plus"></i> Tambah Data
-                                    </button>
-                                </div>
+                                <?php if (isset($data['nama_roles']) && $data['nama_roles'] != 'Guru'): ?>
+                                    <div>
+                                        <button type="button" class="btn btn-primary btn-add">
+                                            <i class="fa-solid fa-plus"></i> Tambah Data
+                                        </button>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="card-body">
@@ -42,10 +48,14 @@
                                             <th>Alamat</th>
                                             <th>Jenis Kelamin</th>
                                             <th>Nomor HP</th>
-                                            <th>Action</th>
+                                            <?php if (isset($data['nama_roles']) && $data['nama_roles'] != 'Guru'): ?>
+                                                <th>Action</th>
+                                            <?php endif; ?>
                                         </tr>
                                     </thead>
-                                    <tbody></tbody>
+                                    <tbody>
+                                        <!-- Diisi oleh JavaScript atau PHP -->
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

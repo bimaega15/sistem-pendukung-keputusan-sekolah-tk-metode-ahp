@@ -30,15 +30,30 @@
                                 $allowedData = ['Admin', 'Guru'];
                                 if (in_array($data['nama_roles'], $allowedData)) { ?>
                                     <div>
+                                    <?php
+                                if ($data['nama_roles'] != 'Admin') { ?>
                                         <a href="<?= BASEURL ?>/Absensi?kelasId=<?= $data['kelas_id'] ?>" class="btn btn-info">
                                             <i class="fa-solid fa-book"></i> Absensi Kelas
                                         </a>
+                                        <?php
+                                }
+                                ?>
+                                 <?php
+                                if ($data['nama_roles'] != 'Admin') { ?>
                                         <a href="<?= BASEURL ?>/Nilai?kelasId=<?= $data['kelas_id'] ?>" class="btn btn-success">
                                             <i class="fa-regular fa-pen-to-square"></i>Nilai Kelas
                                         </a>
+                                        <?php
+                                }
+                                ?>
+                                        <?php
+                                if ($data['nama_roles'] != 'Guru') { ?>
                                         <button type="button" class="btn btn-primary btn-add">
                                             <i class="fa-solid fa-plus"></i> Tambah Data
                                         </button>
+                                        <?php
+                                }
+                                ?>
                                     </div>
                                 <?php } ?>
                             </div>
