@@ -2,6 +2,7 @@ var body = $('body');
 var baseurl = $('.baseurl').data('value');
 var siswa_id = $('.siswa_id').data('value');
 var datatable;
+var roles= $("#cek_roles_login").data("role");
 
 $(document).ready(function () {
     function initDatatable() {
@@ -30,11 +31,17 @@ $(document).ready(function () {
                     name: "keterangan_absensi",
                     searchable: true,
                 },
-                {
-                    data: "action",
-                    name: "action",
-                    searchable: true,
-                },
+                // if(roles !='Orang_'){
+
+                // }
+                roles !== 'Orang Tua' 
+                    ? { data: "action", name: "action", searchable: true } 
+                    : { data: "action", name: "action", visible: false, searchable: false }
+                // {
+                //     data: "action",
+                //     name: "action",
+                //     searchable: true,
+                // },
             ],
             dataAjaxUrl: {
             },

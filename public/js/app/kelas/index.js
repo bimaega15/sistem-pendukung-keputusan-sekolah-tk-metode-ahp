@@ -17,6 +17,7 @@ $(document).ready(function () {
                 data: "tingkat_kelas",
                 name: "tingkat_kelas",
                 searchable: true,
+                visible: false,
             },
             {
                 data: "nama_kelas",

@@ -141,6 +141,13 @@ class Utils extends Controller
         return $myProfile;
     }
 
+    public function cek_users_id_role()
+    {
+        $myProfile = $this->model('User_roles_model')->get_user_role($_SESSION['users_id']);
+        $my_name_roles = $this->model('Peran_model')->getById($myProfile['roles_id']);
+        return $my_name_roles;
+    }
+
     public static function perhitunganAHP($data, $datastatis)
     {
         $save_metode = [];

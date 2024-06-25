@@ -13,7 +13,7 @@ var body = $('body');
 var formSubmit = document.getElementById("form-submit");
 var validate = $("#form-submit").validate({
     rules: {
-        tingkat_kelas: "required",
+        // tingkat_kelas: "required",
         nama_kelas: "required",
         users_id: "required",
     },

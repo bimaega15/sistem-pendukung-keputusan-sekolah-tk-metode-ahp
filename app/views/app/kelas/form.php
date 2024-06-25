@@ -1,20 +1,6 @@
 <form action="<?= $data['action'] ?>" method="post" id="form-submit">
     <div class="modal-body">
         <div class="form-group row">
-            <label for="" class="col-lg-4">Tingkat Kelas</label>
-            <div class="col-lg-8">
-                <select name="tingkat_kelas" class="form-control" id="">
-                    <option value="">-- Pilih Kelas --</option>
-                    <?php
-                    foreach ($data['kelas'] as $key => $item) { ?>
-                        <option value="<?= $item ?>"><?= $item ?></option>
-                    <?php
-                    }
-                    ?>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
             <label for="" class="col-lg-4">Nama Kelas</label>
             <div class="col-lg-8">
                 <input type="text" name="nama_kelas" placeholder="Nama..." class="form-control" value="<?= isset($data['row']) ? $data['row']['nama_kelas'] ?? '' : '' ?>">

@@ -1,3 +1,7 @@
+<?php
+$utils = new Utils();
+$my_roles = $utils->cek_users_id_role();
+?>
 <div class="user_role" data-value="<?= $data['nama_roles'] ?>"></div>
 <div class="user_role" data-value="Guru"></div>
 
@@ -29,7 +33,8 @@
                                 <div>
                                     <i class="fa-solid fa-note-sticky"></i> Siswa
                                 </div>
-                                <?php if (isset($data['nama_roles']) && $data['nama_roles'] != 'Guru'): ?>
+                                <?php 
+                                if (isset($my_roles['nama_roles']) && $my_roles['nama_roles'] != 'Guru'): ?>
                                     <div>
                                         <button type="button" class="btn btn-primary btn-add">
                                             <i class="fa-solid fa-plus"></i> Tambah Data

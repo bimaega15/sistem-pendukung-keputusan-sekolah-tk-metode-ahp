@@ -7,19 +7,23 @@
     ?>
 
     <?php
+    $utils = new Utils();
+    $my_roles = $utils->cek_users_id_role();
+    if (isset($my_roles['nama_roles']) && $my_roles['nama_roles'] === 'Guru'):
     foreach ($data['kriteria'] as $key => $item) { ?>
         <a class="nav-link tab-kriteria" data-tipe="alternatif" data-kriteria_id="<?= $item['id'] ?>" id="<?= $item['kode_kriteria'] ?>_<?= $item['id'] ?>" data-toggle="pill" href="#<?= $item['kode_kriteria'] ?>_<?= $item['id'] ?>_<?= $key ?>" role="tab" aria-controls="<?= $item['kode_kriteria'] ?>_<?= $item['id'] ?>_<?= $key ?>" aria-selected="false">
             <?= $item['nama_kriteria'] ?>
         </a>
     <?php
     }
+    endif;
     ?>
-    <a class="nav-link tab-result-kriteria bg-primary" id="result-kriteria-tab" data-toggle="pill" href="#result-kriteria-tab-controls" role="tab" aria-controls="result-kriteria-tab-controls" aria-selected="true">
+    <a class="nav-link tab-result-kriteria bg-primary mt-1" id="result-kriteria-tab" data-toggle="pill" href="#result-kriteria-tab-controls" role="tab" aria-controls="result-kriteria-tab-controls" aria-selected="true">
         <strong class="text-white">
             Hasil Akhir
         </strong>
     </a>
-    <a class="nav-link tab-result-kriteria-print bg-danger" id="result-kriteria-tab-print" data-toggle="pill" href="#result-kriteria-tab-print-controls" role="tab" aria-controls="result-kriteria-tab-print-controls" aria-selected="true">
+    <a class="nav-link tab-result-kriteria-print bg-danger mt-1" id="result-kriteria-tab-print" data-toggle="pill" href="#result-kriteria-tab-print-controls" role="tab" aria-controls="result-kriteria-tab-print-controls" aria-selected="true">
         <strong class="text-white">
             Cetak Hasil
         </strong>

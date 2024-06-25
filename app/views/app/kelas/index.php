@@ -1,3 +1,7 @@
+<?php
+$utils = new Utils();
+$my_roles = $utils->cek_users_id_role();
+?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -41,6 +45,7 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
+                                            
                                             <th>Tingkat Kelas</th>
                                             <th>Nama Kelas</th>
                                             <th>Nama Guru</th>

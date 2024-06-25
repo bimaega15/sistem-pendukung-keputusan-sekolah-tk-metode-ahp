@@ -30,6 +30,7 @@ class Peran_model
         return $this->db->single();
     }
 
+    
     public function create($data)
     {
         $query = "INSERT INTO roles

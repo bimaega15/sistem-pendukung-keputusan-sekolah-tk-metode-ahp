@@ -21,6 +21,7 @@ class Siswa extends Controller
     {
         $utils = new Utils();
         $myProfile = $utils->myProfile();
+        $my_roles = $utils->cek_users_id_role();
 
         $users_id_siswa = null;
         $namaRoles = $myProfile['nama_roles'];
@@ -38,10 +39,15 @@ class Siswa extends Controller
         <a href="' . BASEURL . '/Siswa/edit/' . $value['id'] . '" class="btn btn-warning btn-edit btn-sm">
             <i class="fa-solid fa-pencil"></i>
         </a>';
+        if($my_roles['nama_roles'] ==='Admin'){
             $buttonDelete = '
-        <a href="' . BASEURL . '/Siswa/delete/' . $value['id'] . '" class="btn btn-danger btn-delete btn-sm">
-            <i class="fa-solid fa-trash"></i>
-        </a>';
+            <a href="' . BASEURL . '/Siswa/delete/' . $value['id'] . '" class="btn btn-danger btn-delete btn-sm">
+                <i class="fa-solid fa-trash"></i>
+            </a>';
+        }else{
+            $buttonDelete ='';
+        }
+            
             $buttonAction = '
             <div class="text-center">
                 ' . $buttonEdit . ' ' . $buttonDelete . '

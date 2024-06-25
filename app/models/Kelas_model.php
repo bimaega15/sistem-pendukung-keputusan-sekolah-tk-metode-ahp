@@ -46,13 +46,13 @@ class Kelas_model
 
     public function create($data)
     {
-        $query = "INSERT INTO kelas (nama_kelas, tingkat_kelas, users_id)
+        $query = "INSERT INTO kelas (nama_kelas, users_id)
                     VALUES
-                  (:nama_kelas, :tingkat_kelas, :users_id)";
+                  (:nama_kelas, :users_id)";
 
         $this->db->query($query);
         $this->db->bind('nama_kelas', $data['nama_kelas']);
-        $this->db->bind('tingkat_kelas', $data['tingkat_kelas']);
+        // $this->db->bind('tingkat_kelas', $data['tingkat_kelas']);
         $this->db->bind('users_id', $data['users_id']);
         $this->db->execute();
 

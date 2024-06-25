@@ -1,3 +1,7 @@
+<?php
+$utils = new Utils();
+$my_roles = $utils->cek_users_id_role();
+?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -34,9 +38,11 @@
                                     <i class="fa-solid fa-note-sticky"></i>Absensi Siswa
                                 </div>
                                 <div>
-                                    <button type="button" class="btn btn-primary btn-add" data-url="<?= BASEURL ?>/AbsensiSiswa/create?siswa_id=<?= $data['siswa']['id'] ?>">
-                                        <i class="fa-solid fa-plus"></i> Tambah Data
-                                    </button>
+                                    <?php if (isset($my_roles['nama_roles']) && $my_roles['nama_roles'] != 'Orang Tua') : ?>
+                                        <button type="button" class="btn btn-primary btn-add" data-url="<?= BASEURL ?>/AbsensiSiswa/create?siswa_id=<?= $data['siswa']['id'] ?>">
+                                            <i class="fa-solid fa-plus"></i> Tambah Data
+                                        </button>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +88,9 @@
                                             <th>Tanggal</th>
                                             <th>Absensi</th>
                                             <th>Keterangan</th>
-                                            <th>Action</th>
+                                            <?php if (isset($my_roles['nama_roles']) && $my_roles['nama_roles'] != 'Orang Tua') : ?>
+                                                <th>Action</th>
+                                            <?php endif; ?>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -96,3 +104,5 @@
     </section>
     <!-- /.content -->
 </div>
+
+<span id="cek_roles_login" data-role="<?= $my_roles['nama_roles'] ?>"></span>
