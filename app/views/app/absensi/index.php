@@ -36,11 +36,11 @@
                                     if ($rowKelas != null) { ?>
                                         <div class="table-responsive">
                                             <table class="w-100">
-                                                <tr>
+                                                <!-- <tr>
                                                     <td>Tingkat</td>
                                                     <td>:</td>
-                                                    <td><?= $rowKelas['tingkat_kelas'] ?></td>
-                                                </tr>
+                                                    <td><? //echo $rowKelas['tingkat_kelas'] ?></td>
+                                                </tr> -->
                                                 <tr>
                                                     <td>Nama Kelas</td>
                                                     <td>:</td>

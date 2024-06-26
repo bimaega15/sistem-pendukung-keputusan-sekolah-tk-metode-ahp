@@ -64,11 +64,13 @@
                                     <div class="table-responsive">
                                         <table class="w-100">
                                             <thead>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td>Tingkat</td>
                                                     <td>:</td>
-                                                    <td><?= $data['kelas']['tingkat_kelas'] ?></td>
-                                                </tr>
+                                                    <td> -->
+                                                        <?php //echo $data['kelas']['tingkat_kelas'] ?>
+                                                    <!-- </td>
+                                                </tr> -->
                                                 <tr>
                                                     <td>Kelas</td>
                                                     <td>:</td>
