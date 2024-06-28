@@ -10,14 +10,7 @@ $data['statis'] = [
         '7' => 'Sangat Penting (7)',
         '8' => 'Diantara 7 & 9 (8)',
         '9' => 'Mutlak Penting (9)',
-        '1/2' => 'Invers Diantara 1 & 3 (1/2)',
-        '1/3' => 'Invers Cukup Penting (1/3)',
-        '1/4' => 'Invers Diantara 3 & 5 (1/4)',
-        '1/5' => 'Invers Lebih Penting (1/5)',
-        '1/6' => 'Invers Diantara 5 & 7 (1/6)',
-        '1/7' => 'Invers Sangat Penting (1/7)',
-        '1/8' => 'Invers Diantara 7 & 9 (1/8)',
-        '1/9' => 'Invers Multak Penting (1/9)',
+
     ],
     'random_index' => [
         1 => 0.00,
@@ -30,36 +23,14 @@ $data['statis'] = [
         8 => 1.41,
         9 => 1.45,
         10 => 1.49,
-        11 => 1.51,
-        12 => 1.48,
-        13 => 1.56,
-        14 => 1.57,
-        15 => 1.59,
+
     ],
     'jenis_absensi' => [
         'sakit' => 'Sakit',
         'izin' => 'Izin',
         'tanpa keterangan' => 'Tanpa Keterangan',
-        'libur resmi' => 'Libur Resmi',
-        'study tour/field trip' => 'Study Tour/Field Trip',
-        'kompetisi/lomba' => 'Kompetisi/Lomba',
-        'perjalanan dinas' => 'Perjalanan Dinas',
-        'kegiatan ekstrakurikuler' => 'Kegiatan Ekstrakurikuler',
-        'pelatihan/kursus' => 'Pelatihan/Kursus',
-        'keperluan agama' => 'Keperluan Agama',
+
+
     ],
-    'kelas' => [
-        'I' => 'I',
-        'II' => 'II',
-        'III' => 'III',
-        'IV' => 'IV',
-        'V' => 'V',
-        'VI' => 'VI',
-        'VII' => 'VII',
-        'VIII' => 'VIII',
-        'IX' => 'IX',
-        'X' => 'X',
-        'XI' => 'XI',
-        'XII' => 'XII',
-    ],
+
 ];
