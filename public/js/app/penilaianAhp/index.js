@@ -366,6 +366,15 @@ $(document).ready(function () {
         const tipe = tabKriteriaActive.data('tipe');
         const kriteriaId = tabKriteriaActive.data('kriteria_id');
 
+        if (tipe === undefined && kriteriaId === undefined) {
+            return Swal.fire({
+                title: 'Failed',
+                text: 'Silahkan pilih kriteria terlebih dahulu',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        }
+
         window.open(`${baseurl}/PenilaianAhp/resultAhpPdf?tipe=${tipe}&kriteria_id=${kriteriaId}`, '_blank');
     })
 
