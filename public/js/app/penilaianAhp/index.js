@@ -366,7 +366,7 @@ $(document).ready(function () {
         const tipe = tabKriteriaActive.data('tipe');
         const kriteriaId = tabKriteriaActive.data('kriteria_id');
 
-        if (tipe === undefined && kriteriaId === undefined) {
+        if (tipe === undefined || kriteriaId === undefined || kriteriaId === '') {
             return Swal.fire({
                 title: 'Failed',
                 text: 'Silahkan pilih kriteria terlebih dahulu',
@@ -391,7 +391,7 @@ $(document).ready(function () {
             errorMessage = 'Pastikan anda sudah mengisi matriks perbandingan';
         }
 
-        if (dataAhpResultKriteria === undefined) {
+        if (dataAhpResultKriteria === undefined || dataAhpResultKriteria === 0) {
             errorMessage = 'Pastikan anda sudah mengisi matriks perbandingan';
         }
 
