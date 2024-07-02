@@ -363,10 +363,7 @@ $(document).ready(function () {
         }
 
         const tabKriteriaActive = $('.tab-kriteria.active');
-        const tipe = tabKriteriaActive.data('tipe');
-        const kriteriaId = tabKriteriaActive.data('kriteria_id');
-
-        if (tipe === undefined || kriteriaId === undefined || kriteriaId === '') {
+        if (tabKriteriaActive.length == 0) {
             return Swal.fire({
                 title: 'Failed',
                 text: 'Silahkan pilih kriteria terlebih dahulu',
@@ -374,6 +371,9 @@ $(document).ready(function () {
                 confirmButtonText: 'OK',
             });
         }
+
+        const tipe = tabKriteriaActive.data('tipe');
+        const kriteriaId = tabKriteriaActive.data('kriteria_id');
 
         window.open(`${baseurl}/PenilaianAhp/resultAhpPdf?tipe=${tipe}&kriteria_id=${kriteriaId}`, '_blank');
     })
