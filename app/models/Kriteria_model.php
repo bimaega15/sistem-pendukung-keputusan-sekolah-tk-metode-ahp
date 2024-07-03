@@ -83,10 +83,10 @@ class Kriteria_model
 
         if ($maxKode) {
             $nextNumber = intval($maxKode['kode_kriteria']) + 1;
-            $nextKode = 'K' . sprintf('%03d', $nextNumber);
+            $nextKode = 'K' . sprintf('%02d', $nextNumber);
         } else {
             // Jika tidak ada data, kode awal adalah K001
-            $nextKode = 'K001';
+            $nextKode = 'K01';
         }
 
         return $nextKode;
