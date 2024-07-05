@@ -78,13 +78,13 @@
           <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-danger">
-                  <div class="inner">
+                  <!-- <div class="inner">
                       <h3><?= $data['kriteria'] ?></h3>
                       <p>Kriteria</p>
                   </div>
                   <div class="icon">
                       <i class="fa-solid fa-layer-group fa"></i>
-                  </div>
+                  </div> -->
                   <!-- <a href="<?= BASEURL ?>/Kriteria" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
               </div>
           </div>
@@ -93,13 +93,13 @@
       <div class="col-lg-3 col-6">
           <!-- small box -->
           <div class="small-box bg-dark">
-              <div class="inner">
+              <!-- <div class="inner">
                   <h3><?= $data['absensi'] ?></h3>
                   <p>Absensi</p>
               </div>
               <div class="icon">
                   <i class="fa-solid fa-book fa"></i>
-              </div>
+              </div> -->
               <!-- <a href="<?= BASEURL ?>/Absensi" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
           </div>
       </div>
@@ -107,14 +107,14 @@
       <div class="col-lg-3 col-6">
           <!-- small box -->
           <div class="small-box bg-info">
-              <div class="inner">
+              <!-- <div class="inner">
                   <h3><?= $data['hasil_akhir'] ?></h3>
 
                   <p>Perkembangan</p>
               </div>
               <div class="icon">
                   <i class="fa-solid fa-chart-simple fa"></i>
-              </div>
+              </div> -->
               <!-- <a href="<?= BASEURL ?>/PerkembanganNilai" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
           </div>
       </div>
@@ -122,13 +122,13 @@
       <div class="col-lg-3 col-6">
           <!-- small box -->
           <div class="small-box bg-primary">
-              <div class="inner">
+              <!-- <div class="inner">
                   <h3><?= $data['nilai'] ?></h3>
                   <p>Nilai</p>
               </div>
               <div class="icon">
                   <i class="fa-solid fa-pencil fa"></i>
-              </div>
+              </div> -->
               <!-- <a href="<?= BASEURL ?>/Nilai" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
           </div>
       </div>

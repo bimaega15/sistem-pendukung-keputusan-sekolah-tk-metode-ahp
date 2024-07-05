@@ -215,7 +215,7 @@ $settingApp = $utils->settingApp();
                 <?php } ?>
 
                 <?php
-                $allowData = [ 'Orang Tua'];
+                $allowData = ['Orang Tua'];
                 if (in_array($myProfile['nama_roles'], $allowData)) { ?>
                     <li class="nav-item">
                         <a href="<?= BASEURL ?>/Nilai" class="nav-link <?= Utils::urlNow() == 'Nilai' ? 'active' : '' ?>">
@@ -228,7 +228,7 @@ $settingApp = $utils->settingApp();
                 <?php } ?>
 
                 <?php
-                $allowData = [ 'Orang Tua'];
+                $allowData = ['Orang Tua'];
                 if (in_array($myProfile['nama_roles'], $allowData)) { ?>
                     <li class="nav-item">
                         <a href="<?= BASEURL ?>/Absensi" class="nav-link <?= Utils::urlNow() == 'Absensi' ? 'active' : '' ?>">
@@ -256,8 +256,8 @@ $settingApp = $utils->settingApp();
                 <li class="nav-header">LOGOUT</li>
 
                 <!-- <?php
-                $allowData = ['Admin'];
-                if (in_array($myProfile['nama_roles'], $allowData)) { ?>
+                        $allowData = ['Admin'];
+                        if (in_array($myProfile['nama_roles'], $allowData)) { ?>
                     <li class="nav-item">
                         <a href="<?= BASEURL ?>/Pengaturan" class="nav-link <?= Utils::urlNow() == 'Pengaturan' ? 'active' : '' ?>">
                             <i class="nav-icon fa-solid fa-gear"></i>
@@ -269,8 +269,8 @@ $settingApp = $utils->settingApp();
                 <?php } ?> -->
 
                 <!-- <?php
-                $allowData = ['Admin'];
-                if (in_array($myProfile['nama_roles'], $allowData)) { ?>
+                        $allowData = ['Admin'];
+                        if (in_array($myProfile['nama_roles'], $allowData)) { ?>
                     <li class="nav-item">
                         <a href="<?= BASEURL ?>/Peran" class="nav-link <?= Utils::urlNow() == 'Peran' ? 'active' : '' ?>">
                             <i class="nav-icon fa-solid fa-user-secret"></i>
