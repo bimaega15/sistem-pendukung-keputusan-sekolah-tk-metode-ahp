@@ -24,7 +24,7 @@ JOIN roles on roles.id = role_user.roles_id';
         $this->db = new Database;
     }
 
-    public function getAll($users_id = null, $users_id_many = null)
+    public function getAll($users_id = null, $users_id_many = null, $is_use_alternatif = false)
     {
         $query = $this->stringDefault . ' WHERE LOWER(roles.nama_roles) = :nama_roles';
         $params = ['nama_roles' => 'siswa'];
@@ -45,6 +45,9 @@ JOIN roles on roles.id = role_user.roles_id';
                 $params[$key] = $id;
             }
             $query .= ' AND users.id IN (' . implode(',', $placeholders) . ')';
+        }
+        if($is_use_alternatif){
+            $query .= ' AND users.is_alternatif = 1';
         }
         $this->db->query($query);
         foreach ($params as $key => $value) {
@@ -226,5 +229,44 @@ JOIN roles on roles.id = role_user.roles_id';
         }
         $result = $this->db->single();
         return doubleval($result['total']);
+    }
+
+    public function saveDataAlternatif($dataAlternatif, $dataAlternatifNotChecked)
+    {
+        $isAktif = [];
+        $isNotAktif = [];
+        foreach ($dataAlternatifNotChecked as $key => $value) {
+            if(in_array($value, $dataAlternatif)){
+                $isAktif[] = $value;
+            } else {
+                $isNotAktif[] = $value;
+            }
+        }
+
+        if(count($isAktif) > 0){
+            foreach ($isAktif as $key => $value) {
+                $query = "UPDATE users SET 
+                is_alternatif = :is_alternatif
+                WHERE id = :id";
+                $this->db->query($query);
+                $this->db->bind('is_alternatif', 1);
+                $this->db->bind('id', $value);
+                $this->db->execute();
+            }
+        }
+
+        if(count($isNotAktif) > 0){
+            foreach ($isNotAktif as $key => $value) {
+                $query = "UPDATE users SET 
+                is_alternatif = :is_alternatif
+                WHERE id = :id";
+                $this->db->query($query);
+                $this->db->bind('is_alternatif', 0);
+                $this->db->bind('id', $value);
+                $this->db->execute();
+            }
+        }
+
+        return true;
     }
 }

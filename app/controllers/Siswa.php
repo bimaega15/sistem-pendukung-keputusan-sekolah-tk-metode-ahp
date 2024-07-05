@@ -53,9 +53,11 @@ class Siswa extends Controller
                 ' . $buttonEdit . ' ' . $buttonDelete . '
             </div>';
 
+            $checkedItems = $value['is_alternatif'] == 1 ? 'checked' : '';
+
             $checkboxItems = '
             <div class="form-check">
-                <input class="form-check-input checkbox-item" type="checkbox" value="' . $value['id'] . '" id="item-' . $value['id'] . '">
+                <input class="form-check-input checkbox-item" type="checkbox" value="' . $value['id'] . '" id="item-' . $value['id'] . '"  '. $checkedItems .'/>
                 <label class="form-check-label" for="item-' . $value['id'] . '">
                 </label>
             </div>
@@ -215,5 +217,17 @@ class Siswa extends Controller
         $siswaModel = $this->model('Siswa_model');
         $data['row'] = $siswaModel->getById($id);
         echo json_encode($data);
+    }
+
+    public function saveData()
+    {
+        $data = $_POST['data'];
+        $dataNotChecked = $_POST['dataNotChecked'];
+        $siswaModel = $this->model('Siswa_model');
+        $siswaModel->saveDataAlternatif($data, $dataNotChecked);
+
+        echo json_encode([
+            'message' => 'Berhasil update alternatif'
+        ]);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 $utils = new Utils();
 $my_roles = $utils->cek_users_id_role();
+$data['nama_roles'] = $my_roles;
 ?>
 <div class="user_role" data-value="<?= $data['nama_roles'] ?>"></div>
 <div class="user_role" data-value="Guru"></div>
@@ -49,6 +50,13 @@ $my_roles = $utils->cek_users_id_role();
                                     <thead>
                                         <tr>
                                             <th>No.</th>
+                                            <th>
+                                                <div class="form-check">
+                                                    <input class="form-check-input checkbox-all" type="checkbox">
+                                                    <label class="form-check-label">
+                                                    </label>
+                                                </div>
+                                            </th>
                                             <th>Nama</th>
                                             <th>Alamat</th>
                                             <th>Jenis Kelamin</th>

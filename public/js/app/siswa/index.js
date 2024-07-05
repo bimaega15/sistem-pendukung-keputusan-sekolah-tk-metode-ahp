@@ -13,6 +13,12 @@ $(document).ready(function(){
                 className: "text-center",
             },
             {
+                data: "checkbox_item",
+                name: "checkbox_item",
+                searchable: false,
+                orderable: false,
+            },
+            {
                 data: "nama_profile",
                 name: "nama_profile",
                 searchable: true,
@@ -86,4 +92,69 @@ $(document).ready(function(){
         $('.btn-edit').hide();
         $('.btn-delete').hide();
     }
+
+    const saveDataItems = (saveData, saveDataNotChecked) => {
+        $.ajax({
+            url: `${baseurl}/Siswa/saveData`,
+            type: 'post',
+            dataType: 'json',
+            data: {
+                data: saveData, 
+                dataNotChecked: saveDataNotChecked
+            },
+            success: function(response){
+                $('#dataTable').DataTable().destroy();
+                initDatatable();
+                // Swal.fire({
+                //     title: 'Successfully',
+                //     text: response.message,
+                //     icon: "success",
+                //     confirmButtonText: "OK",
+                // });
+            }
+        
+        })
+    }
+    body.on('click','.checkbox-all', function(e) {
+        if($(this).is(':checked')){
+            $('.checkbox-item').prop('checked', true);
+        } else {
+            $('.checkbox-item').prop('checked', false);
+        }
+
+        let saveData = [];
+        let saveDataNotChecked = [];
+        const getCheckbox = $('.checkbox-item');
+        getCheckbox.each(function(){
+            if($(this).is(':checked')){
+                saveData.push($(this).val());
+            }
+            saveDataNotChecked.push($(this).val());
+        });
+
+        saveDataItems(saveData, saveDataNotChecked);
+    });
+
+    body.on('click','.checkbox-item', function(e) {
+        const getCheckbox = $('.checkbox-item').length;
+        const getCheckboxChecked = $('.checkbox-item:checked').length;
+        if(getCheckbox === getCheckboxChecked){
+            $('.checkbox-all').prop('checked', true);
+        } else {
+            $('.checkbox-all').prop('checked', false);
+        }
+
+
+        let saveData = [];
+        let saveDataNotChecked = [];
+        const getCheckboxValue = $('.checkbox-item');
+        getCheckboxValue.each(function(){
+            if($(this).is(':checked')){
+                saveData.push($(this).val());
+            }
+            saveDataNotChecked.push($(this).val());
+        });
+
+        saveDataItems(saveData, saveDataNotChecked);
+    });
 });

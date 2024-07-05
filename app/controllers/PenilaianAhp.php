@@ -100,7 +100,7 @@ class PenilaianAhp extends Controller
             $dataKriteria[$item1['kode_kriteria']] = $item1['nama_kriteria'];
         }
 
-        $data['alternatif'] = $this->model('Siswa_model')->getAll();
+        $data['alternatif'] = $this->model('Siswa_model')->getAll(null, null, true);
         $dataAlternatif = [];
         foreach ($data['alternatif'] as $key1 => $item1) {
             foreach ($data['alternatif'] as $key2 => $item2) {
@@ -140,7 +140,7 @@ class PenilaianAhp extends Controller
                         data-alternatif_id1="' . $item1['id'] . '"
                         data-alternatif_id2="' . $item2['id'] . '"
                         data-row="' . $key1 . '" data-column="' . $key2 . '" 
-                        data-value=""
+                        data-value="'.$dataSelected.'"
                         class="invers_matrix data_matriks">
                         ' . $dataSelected . '
                         </span>';
@@ -257,7 +257,7 @@ class PenilaianAhp extends Controller
             $data['ahp_kriteria'] = $ahpKriteria;
         } else {
             $data['kriteria'] = $this->model('Kriteria_model')->getById($dataGet['kriteria_id']);
-            $data['alternatif'] = $this->model('Siswa_model')->getAll();
+            $data['alternatif'] = $this->model('Siswa_model')->getAll(null, null, true);
             $pushAlternatif = [];
             $dataAlternatif = [];
             foreach ($data['alternatif'] as $key => $item) {
@@ -334,7 +334,7 @@ class PenilaianAhp extends Controller
         $data['bobot_alternatif'] = $pushAlternatif;
         $save_hasil_akhir['bobot_alternatif'] = $pushAlternatif;
 
-        $data['alternatif'] = $this->model('Siswa_model')->getAll();
+        $data['alternatif'] = $this->model('Siswa_model')->getAll(null, null, true);
         $pushDataAlternatif = [];
         foreach ($data['alternatif'] as $key => $item) {
             $pushDataAlternatif[$item['id']] = $item;

@@ -129,10 +129,15 @@ $(document).ready(function () {
                         $(this).find(`option[value="${valueMatriks}"]`).prop('selected', true);
                     }
                 } else {
-                    $(this).data('value', '');
-
                     if ($(this).hasClass('invers_matrix')) {
-                        $(this).text('');
+                        const maxLength = matriks.length - 1;
+                        if(maxLength == index){
+                            $(this).text('1');
+                            $(this).data('value', 1);
+                        } else {
+                            $(this).text('');
+                            $(this).data('value', '');
+                        }
                     }
 
                     if ($(this).hasClass('form-control')) {
@@ -175,6 +180,7 @@ $(document).ready(function () {
         const kriteria_id = tabKriteriaActive.data('kriteria_id');
         const id = tabKriteriaActive.attr('id');
         var data_matriks = $(`.tab-content-section[data-tipe="${tipe}"][data-kriteria_id="${kriteria_id}"][data-id="${id}"] .data_matriks`);
+
 
         // validate data
         let error = false;
