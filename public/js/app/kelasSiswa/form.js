@@ -36,16 +36,16 @@ function initDatatable() {
                         (item) => item == row.id
                     );
 
-                    let output = data;
-                    if (checkValueBox !== -1) {
+                    // let output = data;
+                    // if (checkValueBox !== -1) {
                         output = `
                         <div class="form-check">
-                            <input class="form-check-input checkbox-item" type="checkbox" value="${row.id}" id="item-${row.id}" checked>
+                            <input class="form-check-input checkbox-item" type="checkbox" value="${row.id}" id="item-${row.id}">
                             <label class="form-check-label" for="item-${row.id}">
                             </label>
                         </div>
                         `;
-                    }
+                    // }
                     return output;
                 },
             },

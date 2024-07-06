@@ -66,26 +66,37 @@ class KelasSiswa_model
         $dataUsers = explode(',', $data['users_id']);
         $dataKelas = $data['kelas_id'];
 
-        $queryCheck = "SELECT COUNT(*) as count FROM kelas_siswa WHERE kelas_id = :kelas_id AND users_id = :users_id";
-        $this->db->query($queryCheck);
-        $this->db->bind('kelas_id', $dataKelas);
+        // Query untuk menghitung jumlah total baris yang ada
+        $queryCount = "SELECT COUNT(*) as total_rows FROM kelas_siswa WHERE users_id = :users_id";
 
+        // Loop untuk setiap users_id yang diberikan
         foreach ($dataUsers as $key => $usersId) {
+            // Bind parameter untuk query COUNT
+            $this->db->query($queryCount);
+            // $this->db->bind('kelas_id', $dataKelas);
             $this->db->bind('users_id', $usersId);
+
+            // Eksekusi query COUNT
             $this->db->execute();
+
+            // Ambil hasil query COUNT
             $result = $this->db->single();
 
-            if ($result['count'] == 0) {
+            // Jika belum ada entri dengan kelas_id dan users_id yang sama, tambahkan ke valueStrings
+            if ($result['total_rows'] == 0) {
                 $valueStrings[$key] = "(:kelas_id$key, :users_id$key)";
             }
         }
 
-
+        // Jika ada data yang perlu dimasukkan, lakukan operasi INSERT
         if (!empty($valueStrings)) {
+            // Gabungkan nilai untuk INSERT
             $query .= implode(",", $valueStrings);
 
+            // Query INSERT
             $this->db->query($query);
 
+            // Bind parameter untuk INSERT
             foreach ($dataUsers as $key => $usersId) {
                 if (isset($valueStrings[$key])) {
                     $this->db->bind('kelas_id' . $key, $dataKelas);
@@ -93,11 +104,54 @@ class KelasSiswa_model
                 }
             }
 
+            // Eksekusi query INSERT
             $this->db->execute();
         }
 
+        // Mengembalikan jumlah baris yang berhasil dimasukkan
         return $this->db->rowCount();
     }
+
+    // public function create($data)
+    // {
+    //     $query = "INSERT INTO kelas_siswa (kelas_id, users_id) VALUES ";
+    //     $valueStrings = [];
+
+    //     $dataUsers = explode(',', $data['users_id']);
+    //     $dataKelas = $data['kelas_id'];
+
+    //     $queryCheck = "SELECT COUNT(*) as count FROM kelas_siswa WHERE kelas_id = :kelas_id AND users_id = :users_id";
+    //     $this->db->query($queryCheck);
+    //     $this->db->bind('kelas_id', $dataKelas);
+
+    //     foreach ($dataUsers as $key => $usersId) {
+    //         $this->db->bind('users_id', $usersId);
+    //         $this->db->execute();
+    //         $result = $this->db->single();
+
+    //         if ($result['count'] == 0) {
+    //             $valueStrings[$key] = "(:kelas_id$key, :users_id$key)";
+    //         }
+    //     }
+
+
+    //     if (!empty($valueStrings)) {
+    //         $query .= implode(",", $valueStrings);
+
+    //         $this->db->query($query);
+
+    //         foreach ($dataUsers as $key => $usersId) {
+    //             if (isset($valueStrings[$key])) {
+    //                 $this->db->bind('kelas_id' . $key, $dataKelas);
+    //                 $this->db->bind('users_id' . $key, $usersId);
+    //             }
+    //         }
+
+    //         $this->db->execute();
+    //     }
+
+    //     return $this->db->rowCount();
+    // }
 
     public function delete($id)
     {

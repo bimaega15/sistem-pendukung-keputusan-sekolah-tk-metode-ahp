@@ -15,7 +15,7 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content content_penilaian_siswa">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
@@ -77,7 +77,15 @@
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="">Mata Pelajaran</label>
-                                        <select name="nama_matapelajaran" class="form-control select2Server" id="">
+                                        <!-- <select name="nama_matapelajaran" class="form-control select2Server" id="">
+                                        </select> -->
+                                        <select name="nama_matapelajaran" class="form-control" id="">
+                                            <?php
+                                            foreach ($data['mata_pelajaran'] as $key => $item) { ?>
+                                                <option value="<?= $item['id']  ?>" ><?= $item['nama_matapelajaran'] ?></option>
+                                            <?php
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>

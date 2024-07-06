@@ -12,33 +12,33 @@ $(document).ready(function () {
                 {
                     data: null,
                     orderable: false,
-                    searchable: false,
+                    // searchable: false,
                     className: "text-center",
                 },
                 {
                     data: "kode_profile",
                     name: "kode_profile",
-                    searchable: true,
+                    // searchable: true,
                 },
                 {
                     data: "nama_profile",
                     name: "nama_profile",
-                    searchable: true,
+                    // searchable: true,
                 },
                 {
                     data: "jeniskelamin_profile",
                     name: "jeniskelamin_profile",
-                    searchable: true,
+                    // searchable: true,
                 },
                 {
                     data: "nomorhp_profile",
                     name: "nomorhp_profile",
-                    searchable: true,
+                    // searchable: true,
                 },
                 {
                     data: "action",
                     name: "action",
-                    searchable: true,
+                    // searchable: true,
                 },
             ],
             dataAjaxUrl: {

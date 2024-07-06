@@ -51,7 +51,7 @@ $(document).ready(function () {
 
     select2Server({
         selector: '.select2Server',
-        parent: '.content',
+        parent: '.content_penilaian_siswa',
         routing: `${baseurl}/MataPelajaran/select2`,
     })
 
@@ -65,6 +65,15 @@ $(document).ready(function () {
             type: 'get'
         })
     })
+    // $('#modalLg').on('hidden.bs.modal', function () {
+    //     // Inisialisasi kembali select2 di halaman indeks
+    //     select2Server({
+    //     selector: '.select2Server',
+    //     parent: '.content_penilaian_siswa',
+    //     routing: `${baseurl}/MataPelajaran/select2`,
+    // })
+    // });
+    
 
     body.on('click', '.btn-edit', function (e) {
         e.preventDefault();
@@ -88,4 +97,6 @@ $(document).ready(function () {
         $('#dataTable').DataTable().destroy();
         initDatatable(value);
     })
+
+    
 })

@@ -71,6 +71,7 @@ class PenilaianSiswa extends Controller
         $data['breadcrumbs'] = $breadcrumbItems;
         $data['siswa'] = $this->model('Siswa_model')->getById($dataGet['siswa_id']);
         $data['nama_roles'] = $myProfile['nama_roles'];
+        $data['mata_pelajaran'] = $this->model('MataPelajaran_model')->getAll();
 
         ob_start();
         include_once $this->view('app/penilaianSiswa/index', $data);

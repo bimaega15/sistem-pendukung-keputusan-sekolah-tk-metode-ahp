@@ -112,7 +112,7 @@ class Kelas extends Controller
     {
         $action = BASEURL . '/Kelas/store/';
         $data['action'] = $action;
-        $data['kelas'] = $this->datastatis['kelas'];
+        // $data['kelas'] = $this->datastatis['kelas'];
         ob_start();
         include_once $this->view('app/kelas/form', $data);
         $content = ob_get_clean();

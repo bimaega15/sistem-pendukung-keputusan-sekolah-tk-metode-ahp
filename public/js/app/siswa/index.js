@@ -21,22 +21,26 @@ $(document).ready(function(){
             {
                 data: "nama_profile",
                 name: "nama_profile",
-                searchable: true,
+                searchable: false,
+                orderable: false,
             },
             {
                 data: "alamat_profile",
                 name: "alamat_profile",
-                searchable: true,
+                searchable: false,
+                orderable: false,
             },
             {
                 data: "jeniskelamin_profile",
                 name: "jeniskelamin_profile",
-                searchable: true,
+                searchable: false,
+                orderable: false,
             },
             {
                 data: "nomorhp_profile",
                 name: "nomorhp_profile",
-                searchable: true,
+                searchable: false,
+                orderable: false,
             }
         ];
 

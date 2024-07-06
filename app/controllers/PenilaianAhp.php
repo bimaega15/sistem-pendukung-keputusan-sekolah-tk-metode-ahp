@@ -140,7 +140,7 @@ class PenilaianAhp extends Controller
                         data-alternatif_id1="' . $item1['id'] . '"
                         data-alternatif_id2="' . $item2['id'] . '"
                         data-row="' . $key1 . '" data-column="' . $key2 . '" 
-                        data-value="'.$dataSelected.'"
+                        data-value="' . $dataSelected . '"
                         class="invers_matrix data_matriks">
                         ' . $dataSelected . '
                         </span>';
@@ -177,27 +177,44 @@ class PenilaianAhp extends Controller
 
     public function resultDataAhp()
     {
+        //1 Mengambil matriks kriteria dari model MatriksAhp_model dan mendekode data JSON menjadi array asosiatif
         $dataMatriksKriteria = json_decode($this->model('MatriksAhp_model')->getAhpKriteria(), true);
+
+        //2 Mengambil matriks alternatif dari model MatriksAlternatif_model
         $dataMatriksAlternatif = $this->model('MatriksAlternatif_model')->getAhpAlternatif();
+
+        //3 Inisialisasi array untuk menyimpan data AHP Alternatif
         $dataAhpAlternatif = [];
+
+        //4 Memproses setiap item dalam data matriks alternatif
         foreach ($dataMatriksAlternatif as $key => $item) {
+            //5 Mendekode data JSON AHP Alternatif menjadi array asosiatif
             $getAhpAlternatif = json_decode($item['ahp_alternatif'], true);
+
+            //6 Memasukkan data AHP Alternatif ke dalam array $dataAhpAlternatif
             foreach ($getAhpAlternatif as $alternatif_id => $itemValue) {
+             //7
                 $dataAhpAlternatif[$alternatif_id] = $itemValue;
             }
         }
 
+        //8 Mengatur variabel $ahpKriteria menggunakan data matriks kriteria atau dari sesi jika tidak tersedia
         $ahpKriteria = $dataMatriksKriteria !== null ? $dataMatriksKriteria : (isset($_SESSION['ahp_kriteria']) ? $_SESSION['ahp_kriteria'] : []);
 
+        //9 Mengatur variabel $ahpAlternatif menggunakan data AHP Alternatif atau dari sesi jika tidak tersedia
         $ahpAlternatif = count($dataAhpAlternatif) > 0 ? $dataAhpAlternatif : (isset($_SESSION['ahp_alternatif']) ? $_SESSION['ahp_alternatif'] : []);
 
+        //10 Mengambil semua data kriteria dari model Kriteria_model
         $kriteria = $this->model('Kriteria_model')->getAll();
+
+        //11 Menyusun data yang akan dikirim sebagai JSON response
         echo json_encode([
             'ahp_kriteria' => $ahpKriteria,
             'ahp_alternatif' => $ahpAlternatif,
             'kriteria' => $kriteria,
         ]);
     }
+
 
     public function initialData()
     {
@@ -227,74 +244,132 @@ class PenilaianAhp extends Controller
 
     private function dataResultAhp()
     {
+        // Mengambil semua data dari URL query string (GET request)
         $dataGet = $_GET;
+
+        // Mengambil data AHP Kriteria dari model dan mendekodenya dari format JSON menjadi array asosiatif
         $dataMatriksKriteria = json_decode($this->model('MatriksAhp_model')->getAhpKriteria(), true);
+
+        // Mengambil data AHP Alternatif dari model
         $dataMatriksAlternatif = $this->model('MatriksAlternatif_model')->getAhpAlternatif();
+
+        // Inisialisasi array untuk menyimpan data AHP Alternatif
         $dataAhpAlternatif = [];
+
+        // Memproses setiap item dalam data AHP Alternatif
         foreach ($dataMatriksAlternatif as $key => $item) {
+            // Mendekode data AHP Alternatif dari format JSON menjadi array asosiatif
             $getAhpAlternatif = json_decode($item['ahp_alternatif'], true);
+
+            // Memasukkan data AHP Alternatif ke dalam array $dataAhpAlternatif
             foreach ($getAhpAlternatif as $alternatif_id => $itemValue) {
                 $dataAhpAlternatif[$alternatif_id] = $itemValue;
             }
         }
 
+        // Jika data AHP Kriteria tidak null, gunakan data tersebut; jika tidak, cek sesi untuk data AHP Kriteria
         $ahpKriteria = $dataMatriksKriteria !== null ? $dataMatriksKriteria : (isset($_SESSION['ahp_kriteria']) ? $_SESSION['ahp_kriteria'] : []);
 
+        // Jika ada data AHP Alternatif, gunakan data tersebut; jika tidak, cek sesi untuk data AHP Alternatif
         $ahpAlternatif = count($dataAhpAlternatif) > 0 ? $dataAhpAlternatif : (isset($_SESSION['ahp_alternatif']) ? $_SESSION['ahp_alternatif'] : []);
 
-
+        // Jika tipe data yang diminta adalah 'kriteria'
         if ($dataGet['tipe'] == 'kriteria') {
+            // Mengambil semua data kriteria dari model
             $data['kriteria'] = $this->model('Kriteria_model')->getAll();
+
+            // Inisialisasi array untuk menyimpan data kriteria yang diproses
             $pushKriteria = [];
             $dataKriteria = [];
+
+            // Memproses setiap item dalam data kriteria
             foreach ($data['kriteria'] as $key => $item) {
                 $pushKriteria[$item['id']] = $item;
                 $dataKriteria[$item['kode_kriteria']] = $item;
             }
+
+            // Menyimpan data kriteria yang diproses ke dalam array $data
             $data['kriteria'] = $pushKriteria;
             $data['toconvert_kriteria'] = $dataKriteria;
 
+            // Menyimpan data AHP Kriteria ke dalam array $data
             $data['ahp_kriteria'] = $ahpKriteria;
         } else {
+            // Jika tipe data yang diminta adalah 'alternatif'
+            // Mengambil data kriteria berdasarkan ID dari model
             $data['kriteria'] = $this->model('Kriteria_model')->getById($dataGet['kriteria_id']);
+
+            // Mengambil semua data alternatif dari model
             $data['alternatif'] = $this->model('Siswa_model')->getAll(null, null, true);
+
+            // Inisialisasi array untuk menyimpan data alternatif yang diproses
             $pushAlternatif = [];
             $dataAlternatif = [];
+
+            // Memproses setiap item dalam data alternatif
             foreach ($data['alternatif'] as $key => $item) {
                 $pushAlternatif[$item['id']] = $item;
                 $dataAlternatif[$item['kode_profile']] = $item['nama_profile'];
             }
+
+            // Menyimpan data alternatif yang diproses ke dalam array $data
             $data['alternatif'] = $pushAlternatif;
             $data['toconvert_alternatif'] = $dataAlternatif;
 
+            // Menyimpan data AHP Alternatif untuk kriteria tertentu ke dalam array $data
             $data['ahp_alternatif'] = $ahpAlternatif[$dataGet['kriteria_id']];
         }
 
+        // Mengembalikan array yang berisi tipe data dan data yang telah diproses
         return [
             'tipe' => $dataGet['tipe'],
             'data' => $data
         ];
     }
+
     public function resultAhp()
     {
+        // Memanggil metode dataResultAhp() dan menyimpan hasilnya ke variabel $resultAhp
         $resultAhp = $this->dataResultAhp();
+
+        // Mengambil nilai 'tipe' dari hasil $resultAhp dan menyimpannya ke variabel $tipe
         $tipe = $resultAhp['tipe'];
+
+        // Mengambil nilai 'data' dari hasil $resultAhp dan menyimpannya ke variabel $data
         $data = $resultAhp['data'];
+
+        // Memeriksa apakah tipe adalah 'kriteria'
         if ($tipe == 'kriteria') {
+            // Memulai output buffering
             ob_start();
+
+            // Menyertakan file view dengan data yang diberikan
             include_once $this->view('app/penilaianAhp/result', $data);
+
+            // Mengambil konten dari buffer
             $content = ob_get_clean();
+
+            // Menampilkan konten
             echo ($content);
         } else {
+            // Memulai output buffering
             ob_start();
+
+            // Menyertakan file view dengan data yang diberikan
             include_once $this->view('app/penilaianAhp/resultAhp', $data);
+
+            // Mengambil konten dari buffer
             $content = ob_get_clean();
+
+            // Menampilkan konten
             echo ($content);
         }
     }
 
+
     private function manageHasilAkhir()
     {
+        //mengambilkan semua data kriteria dan alternatif
         $dataMatriksKriteria = json_decode($this->model('MatriksAhp_model')->getAhpKriteria(), true);
         $dataMatriksAlternatif = $this->model('MatriksAlternatif_model')->getAhpAlternatif();
         $dataAhpAlternatif = [];
