@@ -53,7 +53,7 @@ class PerkembanganNilai extends Controller
     {
         $dataHasilAkhir = $this->model('HasilAkhir_model')->getHasilAkhir();
         $data['hasil_akhir'] = $dataHasilAkhir != null ? json_decode($dataHasilAkhir, true) : $_SESSION['hasil_akhir'];
-        $data['alternatif'] = $this->model('Siswa_model')->getAll();
+        $data['alternatif'] = $this->model('Siswa_model')->getAll(null, null, true);
         $data['ranking'] = (array_values($data['hasil_akhir']['ranking']));
         $pushAlternatif = [];
         foreach ($data['alternatif'] as $key => $item) {

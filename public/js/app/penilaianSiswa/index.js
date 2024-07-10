@@ -38,14 +38,23 @@ $(document).ready(function () {
     }
 
     function initDatatable(mataPelajaranId = null) {
-        datatable = basicDatatable({
-            tableId: $("#dataTable"),
-            ajaxUrl: `${baseurl}/PenilaianSiswa/dataTables?siswa_id=${siswa_id}`,
-            columns: allowColumn,
-            dataAjaxUrl: {
-                matapelajaran_id: mataPelajaranId
+        $.ajax({
+            url: `${baseurl}/PenilaianSiswa/dataTables`,
+            type: "get",
+            dataType: "json",
+            data: {
+                siswa_id,
+                matapelajaran_id: mataPelajaranId,
             },
-        });
+            success: function (result) {
+                const { data } = result;
+                $('#dataTable').DataTable().destroy();
+                datatable = $('#dataTable').DataTable({
+                    data: data,
+                    columns: allowColumn,
+                });
+            }
+        })
     }
     initDatatable();
 

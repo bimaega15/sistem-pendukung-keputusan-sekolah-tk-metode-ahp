@@ -22,58 +22,55 @@ function getDataKelas() {
 getDataKelas();
 
 function initDatatable() {
-    dataTableSiswa = basicDatatable({
-        tableId: $("#dataTableSiswa"),
-        ajaxUrl: `${baseurl}/Siswa/dataTables`,
-        columns: [
-            {
-                data: "checkbox_item",
-                name: "checkbox_item",
-                searchable: false,
-                orderable: false,
-                render: function (data, type, row) {
-                    const checkValueBox = checkboxItems.findIndex(
-                        (item) => item == row.id
-                    );
+    $.ajax({
+        url: `${baseurl}/Siswa/dataTables`,
+        type: "get",
+        dataType: "json",
+        success: function (result) {
+            const { data } = result;
+            $('#dataTableSiswa').DataTable().destroy();
 
-                    // let output = data;
-                    // if (checkValueBox !== -1) {
-                        output = `
-                        <div class="form-check">
-                            <input class="form-check-input checkbox-item" type="checkbox" value="${row.id}" id="item-${row.id}">
-                            <label class="form-check-label" for="item-${row.id}">
-                            </label>
-                        </div>
-                        `;
-                    // }
-                    return output;
-                },
-            },
-            {
-                data: "nama_profile",
-                name: "nama_profile",
-                searchable: true,
-            },
-            {
-                data: "alamat_profile",
-                name: "alamat_profile",
-                searchable: true,
-            },
-            {
-                data: "jeniskelamin_profile",
-                name: "jeniskelamin_profile",
-                searchable: true,
-            },
-            {
-                data: "nomorhp_profile",
-                name: "nomorhp_profile",
-                searchable: true,
-            },
-        ],
-        dataAjaxUrl: {
-        },
-        isDrawCallBack: false,
-    });
+            dataTableSiswa = $('#dataTableSiswa').DataTable({
+                data: data,
+                columns: [
+                    {
+                        data: "checkbox_item",
+                        searchable: false,
+                        orderable: false,
+                        render: function (data, type, row) {
+                            const checkValueBox = checkboxItems.findIndex(
+                                (item) => item == row.id
+                            );
+
+                            // let output = data;
+                            if (checkValueBox !== -1) {
+                                output = `
+                                <div class="form-check">
+                                    <input class="form-check-input checkbox-item" type="checkbox" value="${row.id}" id="item-${row.id}">
+                                    <label class="form-check-label" for="item-${row.id}">
+                                    </label>
+                                </div>
+                                `;
+                            }
+                            return output;
+                        },
+                    },
+                    {
+                        data: "nama_profile",
+                    },
+                    {
+                        data: "alamat_profile",
+                    },
+                    {
+                        data: "jeniskelamin_profile",
+                    },
+                    {
+                        data: "nomorhp_profile",
+                    },
+                ],
+            });
+        }
+    })
 }
 initDatatable();
 

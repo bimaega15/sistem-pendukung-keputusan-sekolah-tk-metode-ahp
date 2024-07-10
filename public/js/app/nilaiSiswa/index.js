@@ -5,46 +5,34 @@ var datatable;
 
 $(document).ready(function () {
     function initDatatable() {
-        datatable = basicDatatable({
-            tableId: $("#dataTable"),
-            ajaxUrl: `${baseurl}/Nilai/dataTables`,
-            columns: [
-                {
-                    data: null,
-                    orderable: false,
-                    searchable: false,
-                    className: "text-center",
-                },
-                {
-                    data: "nama_profile",
-                    name: "nama_profile",
-                    searchable: true,
-                },
-                {
-                    data: "alamat_profile",
-                    name: "alamat_profile",
-                    searchable: true,
-                },
-                {
-                    data: "jeniskelamin_profile",
-                    name: "jeniskelamin_profile",
-                    searchable: true,
-                },
-                {
-                    data: "nomorhp_profile",
-                    name: "nomorhp_profile",
-                    searchable: true,
-                },
-                {
-                    data: "action",
-                    name: "action",
-                    searchable: true,
-                },
-            ],
-            dataAjaxUrl: {
+        $.ajax({
+            url: `${baseurl}/Nilai/dataTables`,
+            type: "get",
+            dataType: "json",
+            data: {
                 userKelas: JSON.stringify(userKelas),
             },
-        });
+            success: function (result) {
+                const { data } = result;
+                $('#dataTable').DataTable().destroy();
+
+                datatable = $('#dataTable').DataTable({
+                    data: data,
+                    columns: [
+                        { data: null, render: function (data, type, row, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { data: 'nama_profile' },
+                        { data: 'alamat_profile' },
+                        { data: 'jeniskelamin_profile' },
+                        { data: 'nomorhp_profile' },
+                        { data: 'action' }
+                    ]
+                });
+
+            }
+        })
     }
     initDatatable();
 })

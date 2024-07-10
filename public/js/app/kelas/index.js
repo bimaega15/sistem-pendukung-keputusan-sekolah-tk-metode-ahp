@@ -6,49 +6,44 @@ var allowedData = ['Admin'];
 
 $(document).ready(function () {
     function initDatatable() {
-        let columnData = [
-            {
-                data: null,
-                orderable: false,
-                searchable: false,
-                className: "text-center",
-            },
-            {
-                data: "tingkat_kelas",
-                name: "tingkat_kelas",
-                searchable: true,
-                visible: false,
-            },
-            {
-                data: "nama_kelas",
-                name: "nama_kelas",
-                searchable: true,
-            },
-            {
-                data: "nama_profile",
-                name: "nama_profile",
-                searchable: true,
-            },
-            {
-                data: "jumlah_siswa",
-                name: "jumlah_siswa",
-                searchable: true,
-            },
-        ];
-        if (allowedData.includes(namaRoles)) {
-            columnData = [...columnData, {
-                data: "action",
-                name: "action",
-                searchable: false,
-            },]
-        }
-        datatable = basicDatatable({
-            tableId: $("#dataTable"),
-            ajaxUrl: `${baseurl}/Kelas/dataTables`,
-            columns: columnData,
-            dataAjaxUrl: {
-            },
-        });
+        $.ajax({
+            url: `${baseurl}/Kelas/dataTables`,
+            type: "get",
+            dataType: "json",
+            success: function (result) {
+                const { data } = result;
+                $('#dataTable').DataTable().destroy();
+
+                let columnData = [
+                    {
+                        data: null, render: function (data, type, row, meta) {
+                            return meta.row + 1;
+                        }
+                    },
+                    {
+                        data: "nama_kelas",
+                    },
+                    {
+                        data: "nama_profile",
+                    },
+                    {
+                        data: "jumlah_siswa",
+                    },
+                ];
+                if (allowedData.includes(namaRoles)) {
+                    columnData = [
+                            ...columnData, {
+                            data: "action",
+                        },
+                    ]
+                }
+                datatable = $('#dataTable').DataTable({
+                    data: data,
+                    columns: columnData,
+                });
+
+            }
+        })
     }
     initDatatable();
 

@@ -3,6 +3,7 @@ var baseurl = $('.baseurl').data('value');
 var initialData = [];
 var dataAhp = [];
 var proses_ahp = [];
+var namaRoles = $('.namaRoles').data('value');
 var loadData = () => {
     $.ajax({
         url: `${baseurl}/PenilaianAhp/initialData`,
@@ -63,11 +64,12 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
 
-$(document).ready(function () {
-    loadData();
-    resultDataAhp();
-    loadDataAhp();
+loadData();
+resultDataAhp();
+loadDataAhp();
 
+
+$(document).ready(function () {
     body.on('change', 'select[name="select_matrix"]', function (e) {
         const tabKriteriaActive = $('.tab-kriteria.active');
         const tipe = tabKriteriaActive.data('tipe');
@@ -97,6 +99,83 @@ $(document).ready(function () {
         dataMatriks.text(valueInvers);
         dataMatriks.data('value', valueInvers);
     })
+
+    const loadTabKriteria = () => {
+        if(namaRoles.toLowerCase() == 'guru'){
+            const tabKriteriaActive = $('.tab-kriteria.active');
+            
+            const tipe = tabKriteriaActive.data('tipe');
+            const kriteriaId = tabKriteriaActive.data('kriteria_id');
+            const tabId = tabKriteriaActive.attr('id');
+    
+            const dataMatriks = $(`.tab-content-section[data-tipe="${tipe}"][data-kriteria_id="${kriteriaId}"][data-id="${tabId}"] .data_matriks`);
+    
+            const tipeAhp = tipe === 'alternatif' ? 'ahp_alternatif' : 'ahp_kriteria';
+            const dataAhpResult = dataAhp[tipeAhp];
+    
+            const updateDataMatriks = (matriks, matriks_perbandingan_original) => {
+                $.each(matriks, function (index, data) {
+                    const alternatif_id1 = $(this).data('alternatif_id1');
+                    const alternatif_id2 = $(this).data('alternatif_id2');
+    
+                    if (matriks_perbandingan_original.hasOwnProperty(alternatif_id1) && matriks_perbandingan_original[alternatif_id1].hasOwnProperty(alternatif_id2)) {
+                        const valueMatriks = matriks_perbandingan_original[alternatif_id1][alternatif_id2];
+    
+                        $(this).data('value', valueMatriks);
+    
+                        if ($(this).hasClass('invers_matrix')) {
+                            $(this).text(valueMatriks);
+                        }
+    
+                        if ($(this).hasClass('form-control')) {
+                            $(this).find(`option[value="${valueMatriks}"]`).prop('selected', true);
+                        }
+                    } else {
+                        if ($(this).hasClass('invers_matrix')) {
+                            const maxLength = matriks.length - 1;
+                            if(maxLength == index){
+                                $(this).text('1');
+                                $(this).data('value', 1);
+                            } else {
+                                $(this).text('');
+                                $(this).data('value', '');
+                            }
+                        }
+    
+                        if ($(this).hasClass('form-control')) {
+                            $(this).find('option').prop('selected', false);
+                        }
+                    }
+                });
+    
+            }
+    
+            if (dataAhpResult) {
+                if (dataAhpResult.hasOwnProperty(kriteriaId)) {
+                    const matriks_perbandingan_original = dataAhpResult[kriteriaId]['matriks_perbandingan_original'];
+                    updateDataMatriks(dataMatriks, matriks_perbandingan_original);
+                } else {
+                    dataMatriks.each(function () {
+                        const valueMatriks = $(this).data('value');
+    
+                        if ($(this).hasClass('invers_matrix')) {
+                            $(this).text(valueMatriks);
+                        }
+                    });
+                }
+            } else {
+                dataMatriks.each(function () {
+                    const valueMatriks = $(this).data('value');
+    
+                    if ($(this).hasClass('invers_matrix')) {
+                        $(this).text(valueMatriks);
+                    }
+                });
+            }
+        }
+        
+    }
+    loadTabKriteria();
 
     body.on('click', '.tab-kriteria', function (e) {
         e.preventDefault();
@@ -170,7 +249,6 @@ $(document).ready(function () {
                 }
             });
         }
-
     })
 
     body.on('click', '.btn-hitung', function (e) {

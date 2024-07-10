@@ -45,8 +45,6 @@ $my_roles = $utils->cek_users_id_role();
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            
-                                            <th>Tingkat Kelas</th>
                                             <th>Nama Kelas</th>
                                             <th>Nama Guru</th>
                                             <th>Siswa</th>

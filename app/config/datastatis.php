@@ -11,6 +11,15 @@ $data['statis'] = [
         '8' => 'Diantara 7 & 9 (8)',
         '9' => 'Mutlak Penting (9)',
 
+        '1/2' => 'Invers Diantara 1 & 3 (2)',
+        '1/3' => 'Invers Cukup Penting (3)',
+        '1/4' => 'Invers Diantara 3 & 5 (4)',
+        '1/5' => 'Invers Lebih Penting (5)',
+        '1/6' => 'Invers Diantara 5 & 7 (6)',
+        '1/7' => 'Invers Sangat Penting (7)',
+        '1/8' => 'Invers Diantara 7 & 9 (8)',
+        '1/9' => 'Invers Mutlak Penting (9)',
+
     ],
     'random_index' => [
         1 => 0.00,
