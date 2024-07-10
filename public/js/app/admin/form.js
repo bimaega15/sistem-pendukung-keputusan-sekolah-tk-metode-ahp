@@ -50,7 +50,6 @@ var validate = $("#form-submit").validate({
     }
 });
 
-
 $(document).ready(function () {
     formSubmit.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -97,7 +96,7 @@ $(document).ready(function () {
                         icon: "success",
                         confirmButtonText: "OK",
                     });
-                    datatable.ajax.reload();
+                    initDatatable();
                 },
                 error: function (jqXHR, exception) {
                     $("#btn-submit").attr("disabled", false);

@@ -3,48 +3,48 @@ var baseurl = $('.baseurl').data('value');
 var namaRoles = $('.namaRoles').data('value');
 var datatable;
 var allowedData = ['Admin'];
+function initDatatable() {
+    $.ajax({
+        url: `${baseurl}/Kelas/dataTables`,
+        type: "get",
+        dataType: "json",
+        success: function (result) {
+            const { data } = result;
+            $('#dataTable').DataTable().destroy();
+
+            let columnData = [
+                {
+                    data: null, render: function (data, type, row, meta) {
+                        return meta.row + 1;
+                    }
+                },
+                {
+                    data: "nama_kelas",
+                },
+                {
+                    data: "nama_profile",
+                },
+                {
+                    data: "jumlah_siswa",
+                },
+            ];
+            if (allowedData.includes(namaRoles)) {
+                columnData = [
+                        ...columnData, {
+                        data: "action",
+                    },
+                ]
+            }
+            datatable = $('#dataTable').DataTable({
+                data: data,
+                columns: columnData,
+            });
+
+        }
+    })
+}
 
 $(document).ready(function () {
-    function initDatatable() {
-        $.ajax({
-            url: `${baseurl}/Kelas/dataTables`,
-            type: "get",
-            dataType: "json",
-            success: function (result) {
-                const { data } = result;
-                $('#dataTable').DataTable().destroy();
-
-                let columnData = [
-                    {
-                        data: null, render: function (data, type, row, meta) {
-                            return meta.row + 1;
-                        }
-                    },
-                    {
-                        data: "nama_kelas",
-                    },
-                    {
-                        data: "nama_profile",
-                    },
-                    {
-                        data: "jumlah_siswa",
-                    },
-                ];
-                if (allowedData.includes(namaRoles)) {
-                    columnData = [
-                            ...columnData, {
-                            data: "action",
-                        },
-                    ]
-                }
-                datatable = $('#dataTable').DataTable({
-                    data: data,
-                    columns: columnData,
-                });
-
-            }
-        })
-    }
     initDatatable();
 
     body.on('click', '.btn-add', function (e) {
@@ -71,6 +71,7 @@ $(document).ready(function () {
         e.preventDefault();
         basicDeleteConfirmDatatable({
             urlDelete: $(this).attr('href'),
+            dataFunction: initDatatable
         })
     })
 })

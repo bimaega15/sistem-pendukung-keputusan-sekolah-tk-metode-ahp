@@ -4,30 +4,49 @@ var siswa_id = $('.siswa_id').data('value');
 var nama_roles = $('.nama_roles').data('value');
 var datatable;
 
-$(document).ready(function () {
-    const allowColumn = [
-        {
-            data: null,
-            orderable: false,
-            searchable: false,
-            className: "text-center",
-        },
-        {
-            data: "nama_matapelajaran",
-            name: "nama_matapelajaran",
-            searchable: true,
-        },
-        {
-            data: "value_nilai",
-            name: "value_nilai",
-            searchable: true,
-        },
-        {
-            data: "keterangan_nilai",
-            name: "keterangan_nilai",
-            searchable: true,
+const allowColumn = [
+    { 
+        data: null, render: function (data, type, row, meta) {
+            return meta.row + 1;
         }
-    ];
+    },
+    {
+        data: "nama_matapelajaran",
+        name: "nama_matapelajaran",
+        searchable: true,
+    },
+    {
+        data: "value_nilai",
+        name: "value_nilai",
+        searchable: true,
+    },
+    {
+        data: "keterangan_nilai",
+        name: "keterangan_nilai",
+        searchable: true,
+    }
+];
+function initDatatable(mataPelajaranId = null) {
+    $.ajax({
+        url: `${baseurl}/PenilaianSiswa/dataTables`,
+        type: "get",
+        dataType: "json",
+        data: {
+            siswa_id,
+            matapelajaran_id: mataPelajaranId,
+        },
+        success: function (result) {
+            const { data } = result;
+            $('#dataTable').DataTable().destroy();
+            datatable = $('#dataTable').DataTable({
+                data: data,
+                columns: allowColumn,
+            });
+        }
+    })
+}
+
+$(document).ready(function () {
 
     if (nama_roles !== 'Orang Tua') {
         allowColumn.push({
@@ -37,25 +56,7 @@ $(document).ready(function () {
         });
     }
 
-    function initDatatable(mataPelajaranId = null) {
-        $.ajax({
-            url: `${baseurl}/PenilaianSiswa/dataTables`,
-            type: "get",
-            dataType: "json",
-            data: {
-                siswa_id,
-                matapelajaran_id: mataPelajaranId,
-            },
-            success: function (result) {
-                const { data } = result;
-                $('#dataTable').DataTable().destroy();
-                datatable = $('#dataTable').DataTable({
-                    data: data,
-                    columns: allowColumn,
-                });
-            }
-        })
-    }
+   
     initDatatable();
 
     select2Server({
@@ -98,6 +99,7 @@ $(document).ready(function () {
         e.preventDefault();
         basicDeleteConfirmDatatable({
             urlDelete: $(this).attr('href'),
+            dataFunction: initDatatable
         })
     })
 

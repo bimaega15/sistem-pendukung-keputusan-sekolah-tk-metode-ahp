@@ -49,7 +49,33 @@ var validate = $("#form-submit").validate({
         jeniskelamin_profile: "Masukan jenis kelamin",
     }
 });
+function initDatatable() {
+    $.ajax({
+        url: `${baseurl}/WaliMurid/dataTables`,
+        type: "get",
+        dataType: "json",
+        success: function (result) {
+            const { data } = result;
+            $('#dataTable').DataTable().destroy();
 
+            datatable = $('#dataTable').DataTable({
+                data: data,
+                columns: [
+                    { data: null, render: function (data, type, row, meta) {
+                            return meta.row + 1;
+                        }
+                    },
+                    { data: 'nama_profile' },
+                    { data: 'alamat_profile' },
+                    { data: 'jeniskelamin_profile' },
+                    { data: 'nomorhp_profile' },
+                    { data: 'action' }
+                ]
+            });
+
+        }
+    })
+}
 
 $(document).ready(function () {
     formSubmit.addEventListener("submit", function (event) {
@@ -97,7 +123,7 @@ $(document).ready(function () {
                         icon: "success",
                         confirmButtonText: "OK",
                     });
-                    datatable.ajax.reload();
+                    initDatatable();
                 },
                 error: function (jqXHR, exception) {
                     $("#btn-submit").attr("disabled", false);

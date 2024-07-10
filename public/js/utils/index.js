@@ -126,7 +126,7 @@ function basicDeleteConfirmDatatable({
                         icon: "success",
                         confirmButtonText: "OK",
                     });
-                    datatable.ajax.reload();
+                    dataFunction();
                 },
                 error: function (jqXHR, exception) {
                     if (jqXHR.status === 400) {

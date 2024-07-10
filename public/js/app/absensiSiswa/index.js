@@ -3,35 +3,34 @@ var baseurl = $('.baseurl').data('value');
 var siswa_id = $('.siswa_id').data('value');
 var datatable;
 var roles= $("#cek_roles_login").data("role");
-
+function initDatatable() {
+    $.ajax({
+        url: `${baseurl}/AbsensiSiswa/dataTables?siswa_id=${siswa_id}`,
+        type: "get",
+        dataType: "json",
+        success: function(result){
+            const { data } = result;
+            $('#dataTable').DataTable().destroy();
+            
+            datatable = $('#dataTable').DataTable({
+                data: data,
+                columns: [
+                    { data: null, render: function ( data, type, row, meta ) {
+                            return meta.row + 1;
+                        }
+                    },
+                    { data: 'tanggal_absensi' },
+                    { data: 'nama_absensi' },
+                    { data: 'keterangan_absensi' },
+                    roles !== 'Orang Tua' ? { data: "action" } : { data: "action", visible: false}
+                ]
+            });
+            
+        }
+    })
+}
 $(document).ready(function () {
     datatable = $("#dataTable").DataTable();
-    function initDatatable() {
-        $.ajax({
-            url: `${baseurl}/AbsensiSiswa/dataTables?siswa_id=${siswa_id}`,
-            type: "get",
-            dataType: "json",
-            success: function(result){
-                const { data } = result;
-                $('#dataTable').DataTable().destroy();
-                
-                datatable = $('#dataTable').DataTable({
-                    data: data,
-                    columns: [
-                        { data: null, render: function ( data, type, row, meta ) {
-                                return meta.row + 1;
-                            }
-                        },
-                        { data: 'tanggal_absensi' },
-                        { data: 'nama_absensi' },
-                        { data: 'keterangan_absensi' },
-                        roles !== 'Orang Tua' ? { data: "action" } : { data: "action", visible: false}
-                    ]
-                });
-                
-            }
-        })
-    }
     initDatatable();
 
 
@@ -60,6 +59,7 @@ $(document).ready(function () {
         e.preventDefault();
         basicDeleteConfirmDatatable({
             urlDelete: $(this).attr('href'),
+            dataFunction: initDatatable
         })
     })
 })

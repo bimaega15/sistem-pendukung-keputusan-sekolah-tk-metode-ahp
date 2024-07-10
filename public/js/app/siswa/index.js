@@ -2,69 +2,69 @@ var body = $('body');
 var baseurl = $('.baseurl').data('value');
 var userRole = $('.user_role').data('value'); // Pastikan variabel ini ada di HTML
 var datatable;
-
-$(document).ready(function(){
-    function initDatatable() {
-        var columns = [
-            { data: null, render: function (data, type, row, meta) {
-                    return meta.row + 1;
-                }
-            },
-            {
-                data: "checkbox_item",
-                name: "checkbox_item",
-                searchable: false,
-                orderable: false,
-            },
-            {
-                data: "nama_profile",
-                name: "nama_profile",
-                searchable: false,
-                orderable: false,
-            },
-            {
-                data: "alamat_profile",
-                name: "alamat_profile",
-                searchable: false,
-                orderable: false,
-            },
-            {
-                data: "jeniskelamin_profile",
-                name: "jeniskelamin_profile",
-                searchable: false,
-                orderable: false,
-            },
-            {
-                data: "nomorhp_profile",
-                name: "nomorhp_profile",
-                searchable: false,
-                orderable: false,
+function initDatatable() {
+    var columns = [
+        { data: null, render: function (data, type, row, meta) {
+                return meta.row + 1;
             }
-        ];
+        },
+        {
+            data: "checkbox_item",
+            name: "checkbox_item",
+            searchable: false,
+            orderable: false,
+        },
+        {
+            data: "nama_profile",
+            name: "nama_profile",
+            searchable: false,
+            orderable: false,
+        },
+        {
+            data: "alamat_profile",
+            name: "alamat_profile",
+            searchable: false,
+            orderable: false,
+        },
+        {
+            data: "jeniskelamin_profile",
+            name: "jeniskelamin_profile",
+            searchable: false,
+            orderable: false,
+        },
+        {
+            data: "nomorhp_profile",
+            name: "nomorhp_profile",
+            searchable: false,
+            orderable: false,
+        }
+    ];
 
-        // Tambahkan kolom action jika bukan guru
-        if (userRole !== 'Guru') {
-            columns.push({
-                data: "action",
-                name: "action",
-                searchable: true,
+    // Tambahkan kolom action jika bukan guru
+    if (userRole !== 'Guru') {
+        columns.push({
+            data: "action",
+            name: "action",
+            searchable: true,
+        });
+    }
+    $.ajax({
+        url: `${baseurl}/Siswa/dataTables`,
+        type: "get",
+        dataType: "json",
+        success: function (result) {
+            const { data } = result;
+            $('#dataTable').DataTable().destroy();
+
+            datatable = $('#dataTable').DataTable({
+                data: data,
+                columns: columns,
             });
         }
-        $.ajax({
-            url: `${baseurl}/Siswa/dataTables`,
-            type: "get",
-            dataType: "json",
-            success: function (result) {
-                const { data } = result;
-                $('#dataTable').DataTable().destroy();
+    })
+}
 
-                datatable = $('#dataTable').DataTable({
-                    data: data,
-                    columns: columns,
-                });
-            }
-        })
-    }
+$(document).ready(function(){
     initDatatable();
 
     // Hanya tambahkan event listener untuk tombol jika bukan guru
@@ -93,6 +93,7 @@ $(document).ready(function(){
             e.preventDefault();
             basicDeleteConfirmDatatable({
                 urlDelete: $(this).attr('href'),
+                dataFunction: initDatatable
             });
         });
     } else {

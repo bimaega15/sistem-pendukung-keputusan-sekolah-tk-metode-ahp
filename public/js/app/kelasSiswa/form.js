@@ -21,59 +21,6 @@ function getDataKelas() {
 }
 getDataKelas();
 
-function initDatatable() {
-    $.ajax({
-        url: `${baseurl}/Siswa/dataTables`,
-        type: "get",
-        dataType: "json",
-        success: function (result) {
-            const { data } = result;
-            $('#dataTableSiswa').DataTable().destroy();
-
-            dataTableSiswa = $('#dataTableSiswa').DataTable({
-                data: data,
-                columns: [
-                    {
-                        data: "checkbox_item",
-                        searchable: false,
-                        orderable: false,
-                        render: function (data, type, row) {
-                            const checkValueBox = checkboxItems.findIndex(
-                                (item) => item == row.id
-                            );
-
-                            // let output = data;
-                            if (checkValueBox !== -1) {
-                                output = `
-                                <div class="form-check">
-                                    <input class="form-check-input checkbox-item" type="checkbox" value="${row.id}" id="item-${row.id}">
-                                    <label class="form-check-label" for="item-${row.id}">
-                                    </label>
-                                </div>
-                                `;
-                            }
-                            return output;
-                        },
-                    },
-                    {
-                        data: "nama_profile",
-                    },
-                    {
-                        data: "alamat_profile",
-                    },
-                    {
-                        data: "jeniskelamin_profile",
-                    },
-                    {
-                        data: "nomorhp_profile",
-                    },
-                ],
-            });
-        }
-    })
-}
-initDatatable();
-
 var body = $('body');
 var formSubmit = document.getElementById("form-submit");
 
@@ -151,7 +98,7 @@ $(document).ready(function () {
                     icon: "success",
                     confirmButtonText: "OK",
                 });
-                datatable.ajax.reload();
+                initDatatable();
             },
             error: function (jqXHR, exception) {
                 $("#btn-submit").attr("disabled", false);

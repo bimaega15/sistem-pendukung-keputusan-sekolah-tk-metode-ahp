@@ -3,34 +3,34 @@ var baseurl = $('.baseurl').data('value');
 var kelasId = $('.kelas_id').data('value');
 var datatable;
 
+function initDatatable() {
+    $.ajax({
+        url: `${baseurl}/KelasSiswa/dataTables?kelas_id=${kelasId}`,
+        type: "get",
+        dataType: "json",
+        success: function (result) {
+            const { data } = result;
+            $('#dataTable').DataTable().destroy();
+
+            datatable = $('#dataTable').DataTable({
+                data: data,
+                columns: [
+                    { data: null, render: function (data, type, row, meta) {
+                            return meta.row + 1;
+                        }
+                    },
+                    { data: 'kode_profile' },
+                    { data: 'nama_profile' },
+                    { data: 'jeniskelamin_profile' },
+                    { data: 'nomorhp_profile' },
+                    { data: "action" }
+                ]
+            });
+
+        }
+    })
+}
 $(document).ready(function () {
-    function initDatatable() {
-        $.ajax({
-            url: `${baseurl}/KelasSiswa/dataTables?kelas_id=${kelasId}`,
-            type: "get",
-            dataType: "json",
-            success: function (result) {
-                const { data } = result;
-                $('#dataTable').DataTable().destroy();
-
-                datatable = $('#dataTable').DataTable({
-                    data: data,
-                    columns: [
-                        { data: null, render: function (data, type, row, meta) {
-                                return meta.row + 1;
-                            }
-                        },
-                        { data: 'kode_profile' },
-                        { data: 'nama_profile' },
-                        { data: 'jeniskelamin_profile' },
-                        { data: 'nomorhp_profile' },
-                        { data: "action" }
-                    ]
-                });
-
-            }
-        })
-    }
     initDatatable();
 
     body.on('click', '.btn-add', function (e) {
@@ -57,6 +57,7 @@ $(document).ready(function () {
         e.preventDefault();
         basicDeleteConfirmDatatable({
             urlDelete: $(this).attr('href'),
+            dataFunction: initDatatable
         })
     })
 })

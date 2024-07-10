@@ -11,6 +11,7 @@ var validate = $("#form-submit").validate({
     }
 });
 
+
 $(document).ready(function () {
     select2Standard({
         parent: '#modalLg',
@@ -51,7 +52,7 @@ $(document).ready(function () {
                         icon: "success",
                         confirmButtonText: "OK",
                     });
-                    datatable.ajax.reload();
+                    initDatatable();
                 },
                 error: function (jqXHR, exception) {
                     $("#btn-submit").attr("disabled", false);
