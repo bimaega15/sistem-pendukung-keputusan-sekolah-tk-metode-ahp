@@ -11,7 +11,7 @@
  Target Server Version : 100428 (10.4.28-MariaDB)
  File Encoding         : 65001
 
- Date: 10/07/2024 21:44:57
+ Date: 10/07/2024 23:23:03
 */
 
 SET NAMES utf8mb4;
@@ -30,7 +30,7 @@ CREATE TABLE `absensi`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `users_id`(`users_id` ASC) USING BTREE,
   CONSTRAINT `absensi_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of absensi
@@ -44,8 +44,11 @@ INSERT INTO `absensi` VALUES (8, 'izin', 'Izin untuk holiday bosku', 7, '2024-05
 INSERT INTO `absensi` VALUES (9, 'libur resmi', 'Keterangan untuk libur resmi bosku', 7, '2024-05-25 11:46:00');
 INSERT INTO `absensi` VALUES (10, 'libur resmi', 'Keterangan libur resmi', 7, '2024-05-25 11:46:00');
 INSERT INTO `absensi` VALUES (11, 'tanpa keterangan', 'Keterangan tanpa keterangan 1x', 7, '2024-05-25 11:47:00');
-INSERT INTO `absensi` VALUES (12, 'tanpa keterangan', 'Keterangan tanpa keterangan 2x', 7, '2024-05-25 11:47:00');
-INSERT INTO `absensi` VALUES (13, 'tanpa keterangan', 'Keterangan tanpa keterangan 3x', 7, '2024-05-25 11:47:00');
+INSERT INTO `absensi` VALUES (15, 'sakit', 'kok ga bisa pula', 7, '2024-07-10 22:56:00');
+INSERT INTO `absensi` VALUES (16, 'sakit', 'bisa apa bisa', 7, '2024-07-10 22:58:00');
+INSERT INTO `absensi` VALUES (17, 'izin', 'coba check', 7, '2024-07-10 22:59:00');
+INSERT INTO `absensi` VALUES (18, 'sakit', 'apa ini', 26, '2024-07-10 23:08:00');
+INSERT INTO `absensi` VALUES (19, 'sakit', 'apa ini', 26, '2024-07-10 23:09:00');
 
 -- ----------------------------
 -- Table structure for hasil_akhir
@@ -211,7 +214,7 @@ CREATE TABLE `nilai`  (
   INDEX `matapelajaran_id`(`matapelajaran_id` ASC) USING BTREE,
   CONSTRAINT `nilai_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `nilai_ibfk_2` FOREIGN KEY (`matapelajaran_id`) REFERENCES `matapelajaran` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of nilai
@@ -221,11 +224,8 @@ INSERT INTO `nilai` VALUES (7, '80', 'Keterangan ga da obat', 7, 3);
 INSERT INTO `nilai` VALUES (8, '80.53', 'Keterangan mata peelajaran ipa\r\n', 7, 5);
 INSERT INTO `nilai` VALUES (9, '75.5', 'Keterangan ips\r\n', 7, 6);
 INSERT INTO `nilai` VALUES (10, '95.23', 'Keterangan pelajaran matematika', 7, 4);
-INSERT INTO `nilai` VALUES (11, '86.45', 'Keterangan IPS', 7, 6);
 INSERT INTO `nilai` VALUES (12, '88.54', 'Keterangan IPA', 7, 5);
-INSERT INTO `nilai` VALUES (13, '90.54', 'Keterngan IPA', 7, 5);
-INSERT INTO `nilai` VALUES (14, '99.54', 'Keterangan bahasa indonesia\r\n', 7, 2);
-INSERT INTO `nilai` VALUES (15, '98.4', 'Keterangan bahasa inggris', 7, 3);
+INSERT INTO `nilai` VALUES (13, '90.54', 'Keterngan IPA sudah siap kok', 7, 5);
 
 -- ----------------------------
 -- Table structure for pengaturan
