@@ -5,47 +5,32 @@ var datatable;
 var roles= $("#cek_roles_login").data("role");
 
 $(document).ready(function () {
+    datatable = $("#dataTable").DataTable();
     function initDatatable() {
-        datatable = basicDatatable({
-            tableId: $("#dataTable"),
-            ajaxUrl: `${baseurl}/AbsensiSiswa/dataTables?siswa_id=${siswa_id}`,
-            columns: [
-                {
-                    data: null,
-                    orderable: false,
-                    searchable: false,
-                    className: "text-center",
-                },
-                {
-                    data: "tanggal_absensi",
-                    name: "tanggal_absensi",
-                    searchable: true,
-                },
-                {
-                    data: "nama_absensi",
-                    name: "nama_absensi",
-                    searchable: true,
-                },
-                {
-                    data: "keterangan_absensi",
-                    name: "keterangan_absensi",
-                    searchable: true,
-                },
-                // if(roles !='Orang_'){
-
-                // }
-                roles !== 'Orang Tua' 
-                    ? { data: "action", name: "action", searchable: true } 
-                    : { data: "action", name: "action", visible: false, searchable: false }
-                // {
-                //     data: "action",
-                //     name: "action",
-                //     searchable: true,
-                // },
-            ],
-            dataAjaxUrl: {
-            },
-        });
+        $.ajax({
+            url: `${baseurl}/AbsensiSiswa/dataTables?siswa_id=${siswa_id}`,
+            type: "get",
+            dataType: "json",
+            success: function(result){
+                const { data } = result;
+                $('#dataTable').DataTable().destroy();
+                
+                datatable = $('#dataTable').DataTable({
+                    data: data,
+                    columns: [
+                        { data: null, render: function ( data, type, row, meta ) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { data: 'tanggal_absensi' },
+                        { data: 'nama_absensi' },
+                        { data: 'keterangan_absensi' },
+                        roles !== 'Orang Tua' ? { data: "action" } : { data: "action", visible: false}
+                    ]
+                });
+                
+            }
+        })
     }
     initDatatable();
 

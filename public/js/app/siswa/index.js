@@ -52,13 +52,20 @@ $(document).ready(function(){
                 searchable: true,
             });
         }
+        $.ajax({
+            url: `${baseurl}/Siswa/dataTables`,
+            type: "get",
+            dataType: "json",
+            success: function (result) {
+                const { data } = result;
+                $('#dataTable').DataTable().destroy();
 
-        datatable = basicDatatable({
-            tableId: $("#dataTable"),
-            ajaxUrl: `${baseurl}/Siswa/dataTables`,
-            columns: columns,
-            dataAjaxUrl: {},
-        });
+                datatable = $('#dataTable').DataTable({
+                    data: data,
+                    columns: columns,
+                });
+            }
+        })
     }
     initDatatable();
 

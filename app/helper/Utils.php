@@ -148,7 +148,7 @@ class Utils extends Controller
         return $my_name_roles;
     }
 
-    public static function perhitunganAHP($data, $datastatis)
+    public static function  perhitunganAHP($data, $datastatis)
     {
         $save_metode = [];
         // matriks perbandingan

@@ -5,45 +5,31 @@ var datatable;
 
 $(document).ready(function () {
     function initDatatable() {
-        datatable = basicDatatable({
-            tableId: $("#dataTable"),
-            ajaxUrl: `${baseurl}/KelasSiswa/dataTables?kelas_id=${kelasId}`,
-            columns: [
-                {
-                    data: null,
-                    orderable: false,
-                    // searchable: false,
-                    className: "text-center",
-                },
-                {
-                    data: "kode_profile",
-                    name: "kode_profile",
-                    // searchable: true,
-                },
-                {
-                    data: "nama_profile",
-                    name: "nama_profile",
-                    // searchable: true,
-                },
-                {
-                    data: "jeniskelamin_profile",
-                    name: "jeniskelamin_profile",
-                    // searchable: true,
-                },
-                {
-                    data: "nomorhp_profile",
-                    name: "nomorhp_profile",
-                    // searchable: true,
-                },
-                {
-                    data: "action",
-                    name: "action",
-                    // searchable: true,
-                },
-            ],
-            dataAjaxUrl: {
-            },
-        });
+        $.ajax({
+            url: `${baseurl}/KelasSiswa/dataTables?kelas_id=${kelasId}`,
+            type: "get",
+            dataType: "json",
+            success: function (result) {
+                const { data } = result;
+                $('#dataTable').DataTable().destroy();
+
+                datatable = $('#dataTable').DataTable({
+                    data: data,
+                    columns: [
+                        { data: null, render: function (data, type, row, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { data: 'kode_profile' },
+                        { data: 'nama_profile' },
+                        { data: 'jeniskelamin_profile' },
+                        { data: 'nomorhp_profile' },
+                        { data: "action" }
+                    ]
+                });
+
+            }
+        })
     }
     initDatatable();
 

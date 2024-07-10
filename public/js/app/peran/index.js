@@ -4,30 +4,28 @@ var datatable;
 
 $(document).ready(function(){
     function initDatatable() {
-        datatable = basicDatatable({
-            tableId: $("#dataTable"),
-            ajaxUrl: `${baseurl}/Peran/dataTables`,
-            columns: [
-                {
-                    data: null,
-                    orderable: false,
-                    searchable: false,
-                    className: "text-center",
-                },
-                {
-                    data: "nama_roles",
-                    name: "nama_roles",
-                    searchable: true,
-                },
-                {
-                    data: "action",
-                    name: "action",
-                    searchable: true,
-                },
-            ],
-            dataAjaxUrl: {
-            },
-        });
+        $.ajax({
+            url: `${baseurl}/Peran/dataTables`,
+            type: "get",
+            dataType: "json",
+            success: function (result) {
+                const { data } = result;
+                $('#dataTable').DataTable().destroy();
+
+                datatable = $('#dataTable').DataTable({
+                    data: data,
+                    columns: [
+                        { data: null, render: function (data, type, row, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { data: 'nama_roles' },
+                        { data: "action" }
+                    ]
+                });
+
+            }
+        })
     }
     initDatatable();
 

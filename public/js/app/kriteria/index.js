@@ -4,40 +4,30 @@ var datatable;
 
 $(document).ready(function(){
     function initDatatable() {
-        datatable = basicDatatable({
-            tableId: $("#dataTable"),
-            ajaxUrl: `${baseurl}/Kriteria/dataTables`,
-            columns: [
-                {
-                    data: null,
-                    orderable: false,
-                    searchable: false,
-                    className: "text-center",
-                },
-                {
-                    data: "kode_kriteria",
-                    name: "kode_kriteria",
-                    searchable: true,
-                },
-                {
-                    data: "nama_kriteria",
-                    name: "nama_kriteria",
-                    searchable: true,
-                },
-                {
-                    data: "keterangan_kriteria",
-                    name: "keterangan_kriteria",
-                    searchable: true,
-                },
-                {
-                    data: "action",
-                    name: "action",
-                    searchable: true,
-                },
-            ],
-            dataAjaxUrl: {
-            },
-        });
+        $.ajax({
+            url: `${baseurl}/Kriteria/dataTables`,
+            type: "get",
+            dataType: "json",
+            success: function (result) {
+                const { data } = result;
+                $('#dataTable').DataTable().destroy();
+
+                datatable = $('#dataTable').DataTable({
+                    data: data,
+                    columns: [
+                        { data: null, render: function (data, type, row, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        { data: 'kode_kriteria' },
+                        { data: 'nama_kriteria' },
+                        { data: 'keterangan_kriteria' },
+                        { data: "action" }
+                    ]
+                });
+
+            }
+        })
     }
     initDatatable();
 
