@@ -10,8 +10,10 @@
     $utils = new Utils();
     $my_roles = $utils->cek_users_id_role();
     if (isset($my_roles['nama_roles']) && $my_roles['nama_roles'] === 'Guru'):
-    foreach ($data['kriteria'] as $key => $item) { ?>
-        <a class="nav-link tab-kriteria" data-tipe="alternatif" data-kriteria_id="<?= $item['id'] ?>" id="<?= $item['kode_kriteria'] ?>_<?= $item['id'] ?>" data-toggle="pill" href="#<?= $item['kode_kriteria'] ?>_<?= $item['id'] ?>_<?= $key ?>" role="tab" aria-controls="<?= $item['kode_kriteria'] ?>_<?= $item['id'] ?>_<?= $key ?>" aria-selected="false">
+    foreach ($data['kriteria'] as $key => $item) { 
+        $setActive = $key == 0 && $my_roles['nama_roles'] == 'Guru' ? 'active' : '';
+        ?>
+        <a class="nav-link tab-kriteria <?= $setActive ?>" data-tipe="alternatif" data-kriteria_id="<?= $item['id'] ?>" id="<?= $item['kode_kriteria'] ?>_<?= $item['id'] ?>" data-toggle="pill" href="#<?= $item['kode_kriteria'] ?>_<?= $item['id'] ?>_<?= $key ?>" role="tab" aria-controls="<?= $item['kode_kriteria'] ?>_<?= $item['id'] ?>_<?= $key ?>" aria-selected="false">
             <?= $item['nama_kriteria'] ?>
         </a>
     <?php

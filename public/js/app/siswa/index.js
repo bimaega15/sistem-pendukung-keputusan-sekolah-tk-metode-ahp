@@ -107,14 +107,15 @@ $(document).ready(function(){
                 dataNotChecked: saveDataNotChecked
             },
             success: function(response){
-                $('#dataTable').DataTable().destroy();
-                initDatatable();
-                // Swal.fire({
-                //     title: 'Successfully',
-                //     text: response.message,
-                //     icon: "success",
-                //     confirmButtonText: "OK",
-                // });
+                console.log('get response', response);
+                // $('#dataTable').DataTable().destroy();
+                // initDatatable();
+                // // Swal.fire({
+                // //     title: 'Successfully',
+                // //     text: response.message,
+                // //     icon: "success",
+                // //     confirmButtonText: "OK",
+                // // });
             }
         
         })

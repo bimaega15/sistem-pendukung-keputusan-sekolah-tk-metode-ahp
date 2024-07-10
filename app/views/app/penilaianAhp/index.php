@@ -1,4 +1,9 @@
+<?php 
+$utils = new Utils();
+$myProfile = $utils->myProfile();
+$namaRoles = $myProfile['nama_roles'];
 
+?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -79,3 +84,5 @@
     </section>
     <!-- /.content -->
 </div>
+
+<script class="namaRoles" data-value="<?= $namaRoles; ?>"></script>
