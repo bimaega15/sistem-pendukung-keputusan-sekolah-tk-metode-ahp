@@ -6,11 +6,9 @@ var datatable;
 $(document).ready(function(){
     function initDatatable() {
         var columns = [
-            {
-                data: null,
-                orderable: false,
-                searchable: false,
-                className: "text-center",
+            { data: null, render: function (data, type, row, meta) {
+                    return meta.row + 1;
+                }
             },
             {
                 data: "checkbox_item",
