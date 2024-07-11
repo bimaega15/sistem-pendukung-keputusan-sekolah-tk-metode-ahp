@@ -21,7 +21,7 @@ function ajaxErrorMessage(jqXHR, exception) {
     } else if (exception === "abort") {
         msgerror = "Gagal ajax request.";
     } else {
-        msgerror = "Error.\n" + jqXHR.responseJSON.message;
+        msgerror = "Error.\n" + jqXHR.responseText || jqXHR.responseJSON.message;
     }
 
     Swal.fire({

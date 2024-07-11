@@ -385,8 +385,18 @@ class PenilaianAhp extends Controller
         }
 
         $ahpKriteria = $dataMatriksKriteria !== null ? $dataMatriksKriteria : (isset($_SESSION['ahp_kriteria']) ? $_SESSION['ahp_kriteria'] : []);
+        if(count($ahpKriteria) == 0){
+            http_response_code(400);
+            echo json_encode('Data Kriteria Belum Di Proses');
+            exit;
+        }
 
         $ahpAlternatif = count($dataAhpAlternatif) > 0 ? $dataAhpAlternatif : (isset($_SESSION['ahp_alternatif']) ? $_SESSION['ahp_alternatif'] : []);
+        if(count($ahpAlternatif) == 0){
+            http_response_code(400);
+            echo json_encode('Data Alternatif Belum Di Proses');
+            exit;
+        }
 
         $data['ahp_kriteria'] = $ahpKriteria;
         $data['ahp_alternatif'] = $ahpAlternatif;
