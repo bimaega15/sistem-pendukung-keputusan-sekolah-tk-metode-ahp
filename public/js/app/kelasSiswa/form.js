@@ -22,7 +22,7 @@ function getDataKelas() {
 getDataKelas(kelas_id);
 
 $('#dataTableSiswa').DataTable();
-function initDatatable() {
+function initDatatableForm() {
     $.ajax({
         url: `${baseurl}/Siswa/dataTables`,
         type: "get",
@@ -75,7 +75,7 @@ function initDatatable() {
         }
     })
 }
-initDatatable();
+initDatatableForm();
 
 var body = $('body');
 var formSubmit = document.getElementById("form-submit");
@@ -154,6 +154,7 @@ $(document).ready(function () {
                     icon: "success",
                     confirmButtonText: "OK",
                 });
+                initDatatableForm();
                 initDatatable();
             },
             error: function (jqXHR, exception) {
