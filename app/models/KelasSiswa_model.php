@@ -57,6 +57,13 @@ class KelasSiswa_model
         $this->db->bind('kelas_id', $kelas_id);
         return $this->db->single();
     }
+   
+    public function getByKelas($kelas_id)
+    {
+        $this->db->query($this->stringDefault . ' AND kelas_siswa.kelas_id=:kelas_id');
+        $this->db->bind('kelas_id', $kelas_id);
+        return $this->db->resultSet();
+    }
 
     public function create($data)
     {
@@ -67,7 +74,7 @@ class KelasSiswa_model
         $dataKelas = $data['kelas_id'];
 
         // Query untuk menghitung jumlah total baris yang ada
-        $queryCount = "SELECT COUNT(*) as total_rows FROM kelas_siswa WHERE users_id = :users_id";
+        $queryCount = "SELECT COUNT(*) as total_rows FROM kelas_siswa WHERE users_id = :users_id AND kelas_id = :kelas_id";
 
         // Loop untuk setiap users_id yang diberikan
         foreach ($dataUsers as $key => $usersId) {
@@ -75,6 +82,7 @@ class KelasSiswa_model
             $this->db->query($queryCount);
             // $this->db->bind('kelas_id', $dataKelas);
             $this->db->bind('users_id', $usersId);
+            $this->db->bind('kelas_id', $dataKelas);
 
             // Eksekusi query COUNT
             $this->db->execute();
@@ -111,47 +119,6 @@ class KelasSiswa_model
         // Mengembalikan jumlah baris yang berhasil dimasukkan
         return $this->db->rowCount();
     }
-
-    // public function create($data)
-    // {
-    //     $query = "INSERT INTO kelas_siswa (kelas_id, users_id) VALUES ";
-    //     $valueStrings = [];
-
-    //     $dataUsers = explode(',', $data['users_id']);
-    //     $dataKelas = $data['kelas_id'];
-
-    //     $queryCheck = "SELECT COUNT(*) as count FROM kelas_siswa WHERE kelas_id = :kelas_id AND users_id = :users_id";
-    //     $this->db->query($queryCheck);
-    //     $this->db->bind('kelas_id', $dataKelas);
-
-    //     foreach ($dataUsers as $key => $usersId) {
-    //         $this->db->bind('users_id', $usersId);
-    //         $this->db->execute();
-    //         $result = $this->db->single();
-
-    //         if ($result['count'] == 0) {
-    //             $valueStrings[$key] = "(:kelas_id$key, :users_id$key)";
-    //         }
-    //     }
-
-
-    //     if (!empty($valueStrings)) {
-    //         $query .= implode(",", $valueStrings);
-
-    //         $this->db->query($query);
-
-    //         foreach ($dataUsers as $key => $usersId) {
-    //             if (isset($valueStrings[$key])) {
-    //                 $this->db->bind('kelas_id' . $key, $dataKelas);
-    //                 $this->db->bind('users_id' . $key, $usersId);
-    //             }
-    //         }
-
-    //         $this->db->execute();
-    //     }
-
-    //     return $this->db->rowCount();
-    // }
 
     public function delete($id)
     {

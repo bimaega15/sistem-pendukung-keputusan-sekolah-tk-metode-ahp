@@ -27,6 +27,9 @@ function initDatatableForm() {
         url: `${baseurl}/Siswa/dataTables`,
         type: "get",
         dataType: "json",
+        data: {
+            kelas_id,
+        },
         success: function (result) {
             const { data } = result;
             $('#dataTableSiswa').DataTable().destroy();
@@ -36,26 +39,6 @@ function initDatatableForm() {
                 columns: [
                     {
                         data: "checkbox_item",
-                        name: "checkbox_item",
-                        searchable: false,
-                        orderable: false,
-                        render: function (data, type, row) {
-                            const checkValueBox = checkboxItems.findIndex(
-                                (item) => item == row.id
-                            );
-        
-                            let output = data;
-                            if (checkValueBox !== -1) {
-                                output = `
-                                <div class="form-check">
-                                    <input class="form-check-input checkbox-item" type="checkbox" value="${row.id}" id="item-${row.id}">
-                                    <label class="form-check-label" for="item-${row.id}">
-                                    </label>
-                                </div>
-                                `;
-                            }
-                            return output;
-                        },
                     },
                     {
                         data: "nama_profile",
@@ -154,7 +137,6 @@ $(document).ready(function () {
                     icon: "success",
                     confirmButtonText: "OK",
                 });
-                initDatatableForm();
                 initDatatable();
             },
             error: function (jqXHR, exception) {

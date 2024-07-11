@@ -34,6 +34,9 @@ class Siswa extends Controller
         $dataAll = $siswaModel->getAll($users_id_siswa);
         $dataCount = count($dataAll);
         $data = array();
+        $kelas_id = $_GET['kelas_id'] ?? null;
+        $checkKelasSiswa = $this->model('KelasSiswa_model')->getByKelas($kelas_id);
+        
         foreach ($dataAll as $key => $value) {
             $buttonEdit = '
         <a href="' . BASEURL . '/Siswa/edit/' . $value['id'] . '" class="btn btn-warning btn-edit btn-sm">
@@ -54,6 +57,12 @@ class Siswa extends Controller
             </div>';
 
             $checkedItems = $value['is_alternatif'] == 1 ? 'checked' : '';
+            if($kelas_id != null){
+                $findData = array_filter($checkKelasSiswa, function($item) use ($value){
+                    return $item['users_id'] == $value['id'];
+                });
+                $checkedItems = count($findData) > 0 ? 'checked' : '';
+            }
 
             $checkboxItems = '
             <div class="form-check">
@@ -61,8 +70,8 @@ class Siswa extends Controller
                 <label class="form-check-label" for="item-' . $value['id'] . '">
                 </label>
             </div>
-
             ';
+            
             $data[] = [
                 'id' => $value['id'],
                 'checkbox_item' => $checkboxItems,
