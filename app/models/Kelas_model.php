@@ -76,13 +76,11 @@ class Kelas_model
     {
         $query = "UPDATE kelas SET
                     nama_kelas = :nama_kelas,
-                    tingkat_kelas = :tingkat_kelas,
                     users_id = :users_id
                   WHERE id = :id";
 
         $this->db->query($query);
         $this->db->bind('nama_kelas', $data['nama_kelas']);
-        $this->db->bind('tingkat_kelas', $data['tingkat_kelas']);
         $this->db->bind('users_id', $data['users_id']);
         $this->db->bind('id', $id);
 

@@ -24,4 +24,6 @@
         </button>
     </div>
 </form>
+<script class="data_kelas" data-value="<?= isset($data['row']) ? htmlspecialchars(json_encode($data['row']), ENT_QUOTES, 'UTF-8') : '' ?>"></script>
+<script class="page" data-value="<?= isset($data['row']) ? 'edit' : 'add' ?>"></script>
 <script src="<?= BASEURL ?>/public/js/app/kelas/form.js"></script>

@@ -8,6 +8,13 @@ select2Server({
     parent: '#modalNormal',
     routing: `${baseurl}/Guru/select2`,
 })
+var page = $('.page').data('value');
+var data_kelas = $('.data_kelas').data('value');
+if(page === 'edit'){
+    $('select[name="users_id"]').append(
+        new Option(`<strong>Nama Guru: ${data_kelas.nama_profile}</strong>`, data_kelas.users_id, true, true)
+    );    
+}
 
 var body = $('body');
 var formSubmit = document.getElementById("form-submit");
@@ -32,8 +39,7 @@ $(document).ready(function () {
 
     function submitData() {
         if (validate.valid()) {
-            const formData = $("#form-submit").serialize();
-
+            formData = $("#form-submit").serialize();
             $.ajax({
                 type: "post",
                 url: $("#form-submit").attr("action"),
