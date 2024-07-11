@@ -10,33 +10,18 @@ function initDatatable() {
         },
         {
             data: "checkbox_item",
-            name: "checkbox_item",
-            searchable: false,
-            orderable: false,
         },
         {
             data: "nama_profile",
-            name: "nama_profile",
-            searchable: false,
-            orderable: false,
         },
         {
             data: "alamat_profile",
-            name: "alamat_profile",
-            searchable: false,
-            orderable: false,
         },
         {
             data: "jeniskelamin_profile",
-            name: "jeniskelamin_profile",
-            searchable: false,
-            orderable: false,
         },
         {
             data: "nomorhp_profile",
-            name: "nomorhp_profile",
-            searchable: false,
-            orderable: false,
         }
     ];
 
@@ -44,8 +29,8 @@ function initDatatable() {
     if (userRole !== 'Guru') {
         columns.push({
             data: "action",
-            name: "action",
-            searchable: true,
+            searchable: false,
+            orderable: false,
         });
     }
     $.ajax({
