@@ -186,15 +186,17 @@ class PenilaianAhp extends Controller
         //3 Inisialisasi array untuk menyimpan data AHP Alternatif
         $dataAhpAlternatif = [];
 
-        //4 Memproses setiap item dalam data matriks alternatif
-        foreach ($dataMatriksAlternatif as $key => $item) {
-            //5 Mendekode data JSON AHP Alternatif menjadi array asosiatif
-            $getAhpAlternatif = json_decode($item['ahp_alternatif'], true);
+        if ($dataMatriksAlternatif) {
+            //4 Memproses setiap item dalam data matriks alternatif
+            foreach ($dataMatriksAlternatif as $key => $item) {
+                //5 Mendekode data JSON AHP Alternatif menjadi array asosiatif
+                $getAhpAlternatif = json_decode($item['ahp_alternatif'], true);
 
-            //6 Memasukkan data AHP Alternatif ke dalam array $dataAhpAlternatif
-            foreach ($getAhpAlternatif as $alternatif_id => $itemValue) {
-             //7
-                $dataAhpAlternatif[$alternatif_id] = $itemValue;
+                //6 Memasukkan data AHP Alternatif ke dalam array $dataAhpAlternatif
+                foreach ($getAhpAlternatif as $alternatif_id => $itemValue) {
+                    //7
+                    $dataAhpAlternatif[$alternatif_id] = $itemValue;
+                }
             }
         }
 
@@ -257,13 +259,15 @@ class PenilaianAhp extends Controller
         $dataAhpAlternatif = [];
 
         // Memproses setiap item dalam data AHP Alternatif
-        foreach ($dataMatriksAlternatif as $key => $item) {
-            // Mendekode data AHP Alternatif dari format JSON menjadi array asosiatif
-            $getAhpAlternatif = json_decode($item['ahp_alternatif'], true);
+        if ($dataMatriksAlternatif) {
+            foreach ($dataMatriksAlternatif as $key => $item) {
+                // Mendekode data AHP Alternatif dari format JSON menjadi array asosiatif
+                $getAhpAlternatif = json_decode($item['ahp_alternatif'], true);
 
-            // Memasukkan data AHP Alternatif ke dalam array $dataAhpAlternatif
-            foreach ($getAhpAlternatif as $alternatif_id => $itemValue) {
-                $dataAhpAlternatif[$alternatif_id] = $itemValue;
+                // Memasukkan data AHP Alternatif ke dalam array $dataAhpAlternatif
+                foreach ($getAhpAlternatif as $alternatif_id => $itemValue) {
+                    $dataAhpAlternatif[$alternatif_id] = $itemValue;
+                }
             }
         }
 

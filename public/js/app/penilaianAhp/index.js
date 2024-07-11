@@ -259,7 +259,7 @@ $(document).ready(function () {
         const id = tabKriteriaActive.attr('id');
         var data_matriks = $(`.tab-content-section[data-tipe="${tipe}"][data-kriteria_id="${kriteria_id}"][data-id="${id}"] .data_matriks`);
 
-
+        console.log('data matriks', data_matriks);
         // validate data
         let error = false;
         $.each(data_matriks, function (value, index) {
