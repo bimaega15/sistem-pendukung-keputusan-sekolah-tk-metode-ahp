@@ -42,4 +42,11 @@ class MatriksAhp_model extends Controller
             return $this->db->rowCount();
         }
     }
+    public function resetMatriks()
+    {
+        $query = "DELETE FROM matriks_kriteria";
+        $this->db->query($query);
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
 }

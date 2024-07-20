@@ -87,9 +87,8 @@ class PenilaianAhp extends Controller
                         data-kriteria_id1="' . $item1['id'] . '"
                         data-kriteria_id2="' . $item2['id'] . '"
                         data-row="' . $key1 . '" data-column="' . $key2 . '" 
-                        data-value="' . $dataSelected . '"
+                        data-value=""
                         class="invers_matrix data_matriks">
-                        ' . $dataSelected . '
                         </span>';
                     }
                 }
@@ -140,9 +139,8 @@ class PenilaianAhp extends Controller
                         data-alternatif_id1="' . $item1['id'] . '"
                         data-alternatif_id2="' . $item2['id'] . '"
                         data-row="' . $key1 . '" data-column="' . $key2 . '" 
-                        data-value="' . $dataSelected . '"
+                        data-value=""
                         class="invers_matrix data_matriks">
-                        ' . $dataSelected . '
                         </span>';
                     }
                 }
@@ -515,6 +513,22 @@ class PenilaianAhp extends Controller
 
         $dompdf->stream('document.pdf', [
             'Attachment' => 0
+        ]);
+    }
+
+    public function resetMatriks()
+    {
+        $data = $_POST;
+        $tipeAhp = $data['tipeAhp'];
+        if($tipeAhp === 'ahp_alternatif'){
+            $this->model('MatriksAlternatif_model')->resetMatriks();
+        }
+        if($tipeAhp === 'ahp_kriteria'){
+            $this->model('MatriksAhp_model')->resetMatriks();
+        }
+
+        echo json_encode([
+            'message' => 'Berhasil reset matriks ahp',
         ]);
     }
 }

@@ -27,6 +27,26 @@ var resultDataAhp = () => {
     })
 }
 
+const resetMatriks = (tipeAhp) => {
+    $.ajax({
+        url: `${baseurl}/PenilaianAhp/resetMatriks`,
+        dataType: 'json',
+        type: 'post',
+        data: {
+            tipeAhp,
+        },
+        success: function(data){
+            console.log('get data', data);
+        },
+        error: function(err){
+            console.log('get err', err);
+        },
+        complete: function(){
+            window.location.reload();
+        }
+    })
+}
+
 var loadDataAhp = () => {
     const tabKriteriaActive = $('.tab-kriteria.active');
     const tipe = tabKriteriaActive.data('tipe');
@@ -44,7 +64,14 @@ var loadDataAhp = () => {
             $.each(data_matriks, function (value, index) {
                 const alternatif_id1 = $(this).data('alternatif_id1');
                 const alternatif_id2 = $(this).data('alternatif_id2');
-                const valueMatriks = matriks_perbandingan_original[alternatif_id1][alternatif_id2];
+
+                const valueMatriks = (matriks_perbandingan_original && 
+                matriks_perbandingan_original[alternatif_id1] && 
+                matriks_perbandingan_original[alternatif_id1][alternatif_id2]) || false;
+                if (!valueMatriks) {
+                    resetMatriks(tipeAhp);
+                }
+
                 $(this).data('value', valueMatriks);
 
                 const hasInversMatriks = $(this).hasClass('invers_matrix');
@@ -77,6 +104,7 @@ var loadTabKriteria = () => {
             $.each(matriks, function (index, data) {
                 const alternatif_id1 = $(this).data('alternatif_id1');
                 const alternatif_id2 = $(this).data('alternatif_id2');
+
 
                 if (matriks_perbandingan_original.hasOwnProperty(alternatif_id1) && matriks_perbandingan_original[alternatif_id1].hasOwnProperty(alternatif_id2)) {
                     const valueMatriks = matriks_perbandingan_original[alternatif_id1][alternatif_id2];
@@ -143,12 +171,10 @@ $(function () {
 loadData();
 resultDataAhp();
 loadDataAhp();
+loadTabKriteria();
 
 
 $(document).ready(function () {
-    loadTabKriteria();
-
-
     body.on('change', 'select[name="select_matrix"]', function (e) {
         const tabKriteriaActive = $('.tab-kriteria.active');
         const tipe = tabKriteriaActive.data('tipe');

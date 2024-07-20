@@ -18,7 +18,7 @@
         <div class="form-group row">
             <label for="" class="col-lg-4">Nilai</label>
             <div class="col-lg-8">
-                <input type="number" name="value_nilai" placeholder="Nilai..." class="form-control" value="<?= isset($data['row']) ? $data['row']['value_nilai'] ?? '' : '' ?>">
+                <input type="text" name="value_nilai" placeholder="Nilai..." class="form-control" value="<?= isset($data['row']) ? $data['row']['value_nilai'] ?? '' : '' ?>">
             </div>
         </div>
         <div class="form-group row">
