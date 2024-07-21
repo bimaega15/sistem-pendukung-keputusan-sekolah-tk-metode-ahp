@@ -87,8 +87,9 @@ class PenilaianAhp extends Controller
                         data-kriteria_id1="' . $item1['id'] . '"
                         data-kriteria_id2="' . $item2['id'] . '"
                         data-row="' . $key1 . '" data-column="' . $key2 . '" 
-                        data-value=""
+                        data-value="' . $dataSelected . '"
                         class="invers_matrix data_matriks">
+                        ' . $dataSelected . '
                         </span>';
                     }
                 }
@@ -383,14 +384,14 @@ class PenilaianAhp extends Controller
         }
 
         $ahpKriteria = $dataMatriksKriteria !== null ? $dataMatriksKriteria : (isset($_SESSION['ahp_kriteria']) ? $_SESSION['ahp_kriteria'] : []);
-        if(count($ahpKriteria) == 0){
+        if (count($ahpKriteria) == 0) {
             http_response_code(400);
             echo json_encode('Data Kriteria Belum Di Proses');
             exit;
         }
 
         $ahpAlternatif = count($dataAhpAlternatif) > 0 ? $dataAhpAlternatif : (isset($_SESSION['ahp_alternatif']) ? $_SESSION['ahp_alternatif'] : []);
-        if(count($ahpAlternatif) == 0){
+        if (count($ahpAlternatif) == 0) {
             http_response_code(400);
             echo json_encode('Data Alternatif Belum Di Proses');
             exit;
@@ -520,10 +521,10 @@ class PenilaianAhp extends Controller
     {
         $data = $_POST;
         $tipeAhp = $data['tipeAhp'];
-        if($tipeAhp === 'ahp_alternatif'){
+        if ($tipeAhp === 'ahp_alternatif') {
             $this->model('MatriksAlternatif_model')->resetMatriks();
         }
-        if($tipeAhp === 'ahp_kriteria'){
+        if ($tipeAhp === 'ahp_kriteria') {
             $this->model('MatriksAhp_model')->resetMatriks();
         }
 
